@@ -1,4 +1,4 @@
-import { AbstractGlobalProvider, Provider } from './provider.js';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 /** A user event that is allowed to trigger an ad */
 export type UserGesture = MouseEvent | SubmitEvent | PointerEvent | TouchEvent;
@@ -19,10 +19,7 @@ export interface RewardedAdProvider extends Provider {
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider>;
 }
 
-class Ads
-    extends AbstractGlobalProvider<RewardedAdProvider>
-    implements RewardedAdProvider
-{
+class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements RewardedAdProvider {
     name = 'uber-ad-provider';
 
     hasAd(): boolean {
@@ -36,7 +33,7 @@ class Ads
         for (const p of this.providers) {
             if (p.hasAd()) return p.showRewardedAd(userGesture);
         }
-        return Promise.reject({ status: 'ads-unavailable', provider: this });
+        return Promise.reject({status: 'ads-unavailable', provider: this});
     }
 }
 

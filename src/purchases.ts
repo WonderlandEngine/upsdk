@@ -1,4 +1,4 @@
-import { AbstractGlobalProvider, Provider } from './provider.js';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 /**
  * Purchases Provider
@@ -42,10 +42,7 @@ class Purchases
         if (!this.hasProviders())
             return Promise.reject(new Error('No providers available.'));
         /* Only purchase from highest priority service */
-        return this.providers[this.providers.length - 1].purchaseItem(
-            itemId,
-            count ?? 1
-        );
+        return this.providers[this.providers.length - 1].purchaseItem(itemId, count ?? 1);
     }
     getItemURL(itemId: string): Promise<string> {
         if (!this.hasProviders())
@@ -56,8 +53,7 @@ class Purchases
     isItemPurchased(itemId: string): boolean {
         if (!this.hasProviders()) return false;
         /* Only purchase from highest priority service */
-        for (const p of this.providers)
-            if (p.isItemPurchased(itemId)) return true;
+        for (const p of this.providers) if (p.isItemPurchased(itemId)) return true;
         return false;
     }
 }

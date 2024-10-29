@@ -1,4 +1,4 @@
-import { RewardedAdProvider, UserGesture } from '../advertising.js';
+import {RewardedAdProvider, UserGesture} from '../advertising.js';
 
 export interface AppLixirConfig {
     /* Defaults to debug zone 2050 */

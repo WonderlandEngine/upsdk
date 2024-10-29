@@ -1,4 +1,4 @@
-import { AbstractGlobalProvider, Provider } from './provider.js';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 export interface AnalyticsProvider extends Provider {
     trackGameplayStart(): void;
