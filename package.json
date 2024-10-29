@@ -1,15 +1,28 @@
 {
-  "name": "@wonderlandengine/uber-sdk",
-  "version": "0.0.1",
-  "description": "Platform SDK to abstract various Web Game Platform services.",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc"
-  },
-  "author": "Jonathan Hale, Wonderland GmbH",
-  "license": "MIT",
-  "dependencies": {
-    "@heyvr/sdk-types": "^1.1.7",
-    "@tma.js/sdk": "^2.7.0"
-  }
+    "name": "@wonderlandengine/uber-sdk",
+    "version": "0.0.1",
+    "description": "Platform SDK to abstract various Web Game Platform services.",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "files": [
+        "dist/**/*.d.ts",
+        "dist/**/*.js"
+    ],
+    "scripts": {
+        "build": "tsc"
+    },
+    "author": "Jonathan Hale, Wonderland GmbH",
+    "license": "MIT",
+    "peerDependencies": {
+        "@wonderlandengine/api": "^1.1.0"
+    },
+    "dependencies": {
+        "@heyvr/sdk-types": "^1.1.7",
+        "@tma.js/sdk": "^2.7.0"
+    }
 }

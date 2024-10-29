@@ -1,4 +1,4 @@
-import {AbstractGlobalProvider, Provider} from './provider';
+import { AbstractGlobalProvider, Provider } from './provider.js';
 
 export interface LeaderboardEntry {
     /** When the leaderboard entry was created */
@@ -26,7 +26,10 @@ export interface LeaderboardsProvider extends Provider {
      *         for this user, rejects when posting failed.
      */
     postScore(leaderboardId: string, score: number): Promise<boolean>;
-    getScores(leaderboardId: string, maxCount: number): Promise<LeaderboardEntry[]>;
+    getScores(
+        leaderboardId: string,
+        maxCount: number
+    ): Promise<LeaderboardEntry[]>;
 }
 
 /**
@@ -52,10 +55,16 @@ class Leaderboards
         });
     }
 
-    getScores(leaderboardId: string, maxCount: number): Promise<LeaderboardEntry[]> {
+    getScores(
+        leaderboardId: string,
+        maxCount: number
+    ): Promise<LeaderboardEntry[]> {
         if (!this.hasProviders())
             return Promise.reject(new Error('No providers available.'));
-        return this.providers[this.providers.length - 1].getScores(leaderboardId, maxCount);
+        return this.providers[this.providers.length - 1].getScores(
+            leaderboardId,
+            maxCount
+        );
     }
 }
 

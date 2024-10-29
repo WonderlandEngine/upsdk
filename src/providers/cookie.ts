@@ -42,6 +42,8 @@ export function getCookie(cname: string) {
  */
 export class CookieSaveGameProvider implements SaveGameProvider {
     cookieKey: string;
+    name: string;
+    available?: boolean;
 
     /**
      * Constructor

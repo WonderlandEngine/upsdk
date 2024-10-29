@@ -1,9 +1,9 @@
-import {User, UserProvider} from '../user.js';
-import {heyVRSDK} from '@heyvr/sdk-types';
-import {SaveGameProvider} from '../savegame';
-import {LeaderboardEntry, LeaderboardsProvider} from '../leaderboards.js';
-import {PurchasesProvider} from '../purchases.js';
-import {Emitter} from '@wonderlandengine/api';
+import { User, UserProvider } from '../user.js';
+import { heyVRSDK } from '@heyvr/sdk-types';
+import { SaveGameProvider } from '../savegame.js';
+import { LeaderboardEntry, LeaderboardsProvider } from '../leaderboards.js';
+import { PurchasesProvider } from '../purchases.js';
+import { Emitter } from '@wonderlandengine/api';
 
 declare global {
     interface Window {
@@ -12,7 +12,11 @@ declare global {
 }
 
 export class HeyVRProvider
-    implements UserProvider, SaveGameProvider, LeaderboardsProvider, PurchasesProvider
+    implements
+        UserProvider,
+        SaveGameProvider,
+        LeaderboardsProvider,
+        PurchasesProvider
 {
     name = 'heyvr';
 
@@ -81,7 +85,7 @@ export class HeyVRProvider
         /* Handle external auth changes */
         window.heyVR.user.onAuthChange((e) => {
             if (e.loggedIn) {
-                this._user = {name: e.username};
+                this._user = { name: e.username };
             } else {
                 this._user = null;
             }
@@ -108,7 +112,7 @@ export class HeyVRProvider
         const p0 = window.heyVR.user
             .getName()
             .then((name) => {
-                if (!this._user) this._user = {name};
+                if (!this._user) this._user = { name };
                 else this._user.name = name;
             })
             .catch(console.error);
@@ -125,7 +129,8 @@ export class HeyVRProvider
 
     save(o: any, slot?: number): Promise<boolean> {
         return this.onReady.then(() => {
-            if (this.isLoggedIn) return window.heyVR.saveGame.write(o, true, slot);
+            if (this.isLoggedIn)
+                return window.heyVR.saveGame.write(o, true, slot);
             return false;
         });
     }
@@ -154,24 +159,32 @@ export class HeyVRProvider
     }
 
     async purchaseItem(itemId: string, count?: number) {
-        const success = await window.heyVR.inventory.purchase(itemId, count ?? 1);
+        const success = await window.heyVR.inventory.purchase(
+            itemId,
+            count ?? 1
+        );
         if (success) {
             this.ownedItems.push(itemId);
         }
         return !!success;
     }
 
-    getScores(leaderboardId: string, maxCount: number): Promise<LeaderboardEntry[]> {
+    getScores(
+        leaderboardId: string,
+        maxCount: number
+    ): Promise<LeaderboardEntry[]> {
         return this.onReady.then(() => {
             if (this.isLoggedIn)
-                return window.heyVR.leaderboard.getMy(leaderboardId, maxCount).then((s) => {
-                    return s.map((s) => ({
-                        user: s.user,
-                        rank: s.rank,
-                        score: s.score,
-                        updatedAt: s.created_at,
-                    }));
-                });
+                return window.heyVR.leaderboard
+                    .getMy(leaderboardId, maxCount)
+                    .then((s) => {
+                        return s.map((s) => ({
+                            user: s.user,
+                            rank: s.rank,
+                            score: s.score,
+                            updatedAt: s.created_at,
+                        }));
+                    });
             else return [];
         });
     }

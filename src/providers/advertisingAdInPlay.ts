@@ -1,4 +1,4 @@
-import {RewardedAdProvider, UserGesture} from './advertising.js';
+import { RewardedAdProvider, UserGesture } from '../advertising.js';
 
 /* Global declared by the adinplay SDK */
 declare class aipPlayer {
@@ -7,7 +7,12 @@ declare class aipPlayer {
         AIP_REWARDEDGRANTED: () => void;
         AD_WIDTH: number;
         AD_HEIGHT: number;
-        AD_DISPLAY: 'default' | 'fullscreen' | 'center' | 'modal-center' | 'fill';
+        AD_DISPLAY:
+            | 'default'
+            | 'fullscreen'
+            | 'center'
+            | 'modal-center'
+            | 'fill';
         LOADING_TEXT: string;
         PREROLL_ELEM: () => void;
         AIP_COMPLETE: () => void;
@@ -27,7 +32,11 @@ interface AIPTag {
         position: 'centered' | 'bottom'; //centered or bottom
         button: boolean;
         buttonText: 'Privacy settings';
-        buttonPosition: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+        buttonPosition:
+            | 'bottom-left'
+            | 'bottom-right'
+            | 'top-left'
+            | 'top-right';
     };
 }
 declare var aiptag: AIPTag;

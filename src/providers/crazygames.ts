@@ -1,8 +1,8 @@
-import {RewardedAdProvider, UserGesture} from './advertising.js';
-import {AnalyticsProvider} from './analytics.js';
-import {ExtraProvider} from './extra.js';
-import {SaveGameProvider} from './savegame.js';
-import {User, UserProvider} from './user.js';
+import { RewardedAdProvider, UserGesture } from '../advertising.js';
+import { AnalyticsProvider } from '../analytics.js';
+import { ExtraProvider } from '../extra.js';
+import { SaveGameProvider } from '../savegame.js';
+import { User, UserProvider } from '../user.js';
 
 interface CrazyGamesUser {
     username: string;
@@ -38,7 +38,9 @@ declare global {
                 };
                 user: {
                     getUser(): Promise<CrazyGamesUser>;
-                    addAuthListener(listener: (user: CrazyGamesUser) => void): void;
+                    addAuthListener(
+                        listener: (user: CrazyGamesUser) => void
+                    ): void;
                     showAuthPrompt(): Promise<CrazyGamesUser>;
                 };
 
@@ -88,15 +90,19 @@ export class CrazyGamesProvider
         script.onload = async () => {
             await window.CrazyGames.SDK.init();
 
-            window.CrazyGames.SDK.ad.hasAdblock().then((b) => (this.hasAds = b));
+            window.CrazyGames.SDK.ad
+                .hasAdblock()
+                .then((b) => (this.hasAds = b));
 
-            window.CrazyGames.SDK.user.addAuthListener((user: CrazyGamesUser) => {
-                this.cgUser = user;
-                this.user = {
-                    name: this.cgUser.username,
-                    profilePictureUrl: this.cgUser.profilePictureUrl,
-                };
-            });
+            window.CrazyGames.SDK.user.addAuthListener(
+                (user: CrazyGamesUser) => {
+                    this.cgUser = user;
+                    this.user = {
+                        name: this.cgUser.username,
+                        profilePictureUrl: this.cgUser.profilePictureUrl,
+                    };
+                }
+            );
 
             this.ready = true;
             resolveReady(true);
@@ -118,7 +124,10 @@ export class CrazyGamesProvider
         return new Promise<RewardedAdProvider>((res, rej) => {
             const callbacks = {
                 adFinished: () => res(provider),
-                adError: (error: {code: 'unfilled' | 'other'; message: string}) => {
+                adError: (error: {
+                    code: 'unfilled' | 'other';
+                    message: string;
+                }) => {
                     /* Ad not filled or error! */
                     switch (error.code) {
                         case 'unfilled':

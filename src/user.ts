@@ -1,5 +1,5 @@
-import {Emitter} from '@wonderlandengine/api';
-import {AbstractGlobalProvider, Provider} from './provider';
+import { Emitter } from '@wonderlandengine/api';
+import { AbstractGlobalProvider, Provider } from './provider.js';
 
 /** A logged in user */
 export interface User {
@@ -30,7 +30,9 @@ class UserProviderManager
         this.providers.push(p);
         /* Forward onAuthChange events */
         if (p.onAuthChange)
-            p.onAuthChange.add(this.onAuthChange.notify.bind(this.onAuthChange));
+            p.onAuthChange.add(
+                this.onAuthChange.notify.bind(this.onAuthChange)
+            );
     }
 
     get isLoggedIn() {
@@ -44,7 +46,8 @@ class UserProviderManager
     }
 
     requestLogin(): Promise<User> {
-        for (let u of this.providers) if (!u.isLoggedIn) return u.requestLogin();
+        for (let u of this.providers)
+            if (!u.isLoggedIn) return u.requestLogin();
         return Promise.reject();
     }
 }

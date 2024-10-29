@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "outDir": "dist",
+        "declaration": true,
+        "newLine": "LF",
+        "allowJs": true,
+        "strict": false,
+        "experimentalDecorators": true
+    },
+
+    "include": ["./src/*.ts", "./src/*.js", "src/providers/*.ts"],
+    "exclude": ["node_modules"]
+}

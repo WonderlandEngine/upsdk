@@ -1,4 +1,4 @@
-import {User, UserProvider} from './user.js';
+import {User, UserProvider} from '../user.js';
 import {init, retrieveLaunchParams, User as TelegramUser} from '@tma.js/sdk';
 
 export interface TelegramConfig {
