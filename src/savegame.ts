@@ -1,4 +1,4 @@
-import {AbstractGlobalProvider, Provider} from './provider';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 /**
  * Save Game Provider

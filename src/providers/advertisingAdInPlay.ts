@@ -1,4 +1,4 @@
-import {RewardedAdProvider, UserGesture} from './advertising.js';
+import {RewardedAdProvider, UserGesture} from '../advertising.js';
 
 /* Global declared by the adinplay SDK */
 declare class aipPlayer {

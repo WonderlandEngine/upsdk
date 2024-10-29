@@ -1,6 +1,6 @@
 import {User, UserProvider} from '../user.js';
 import {heyVRSDK} from '@heyvr/sdk-types';
-import {SaveGameProvider} from '../savegame';
+import {SaveGameProvider} from '../savegame.js';
 import {LeaderboardEntry, LeaderboardsProvider} from '../leaderboards.js';
 import {PurchasesProvider} from '../purchases.js';
 import {Emitter} from '@wonderlandengine/api';

@@ -1,5 +1,5 @@
 import {Emitter} from '@wonderlandengine/api';
-import {AbstractGlobalProvider, Provider} from './provider';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 /** A logged in user */
 export interface User {

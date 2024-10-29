@@ -1,4 +1,4 @@
-import {AbstractGlobalProvider, Provider} from './provider';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 /** A user event that is allowed to trigger an ad */
 export type UserGesture = MouseEvent | SubmitEvent | PointerEvent | TouchEvent;

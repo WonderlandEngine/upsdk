@@ -1,4 +1,4 @@
-import {AbstractGlobalProvider, Provider} from './provider';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 export interface ExtraProvider extends Provider {
     celebrate(): void;

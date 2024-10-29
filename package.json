@@ -1,15 +1,35 @@
 {
-  "name": "@wonderlandengine/uber-sdk",
-  "version": "0.0.1",
-  "description": "Platform SDK to abstract various Web Game Platform services.",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc"
-  },
-  "author": "Jonathan Hale, Wonderland GmbH",
-  "license": "MIT",
-  "dependencies": {
-    "@heyvr/sdk-types": "^1.1.7",
-    "@tma.js/sdk": "^2.7.0"
-  }
+    "name": "@wonderlandengine/uber-sdk",
+    "version": "0.0.1",
+    "description": "Platform SDK to abstract various Web Game Platform services.",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "files": [
+        "dist/**/*.d.ts",
+        "dist/**/*.js"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
+    },
+    "author": "Jonathan Hale, Timmy Kokke, Wonderland GmbH",
+    "license": "MIT",
+    "prettier": "@wonderlandengine/prettier-config",
+    "peerDependencies": {
+        "@wonderlandengine/api": "^1.1.0"
+    },
+    "dependencies": {
+        "@heyvr/sdk-types": "^1.1.7",
+        "@tma.js/sdk": "^2.7.0"
+    },
+    "devDependencies": {
+        "@wonderlandengine/prettier-config": "^1.0.0",
+        "prettier": "^3.3.3"
+    }
 }

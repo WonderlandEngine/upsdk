@@ -1,4 +1,4 @@
-import {AbstractGlobalProvider, Provider} from './provider';
+import {AbstractGlobalProvider, Provider} from './provider.js';
 
 export interface LeaderboardEntry {
     /** When the leaderboard entry was created */
