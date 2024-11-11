@@ -8,11 +8,7 @@
     "types": "./dist/index.d.ts",
     "exports": {
         ".": "./dist/index.js",
-        "./crazygames": "./dist/providers/crazygames.js",
-        "./cookie": "./dist/providers/cookie.js",
-        "./localStorage": "./dist/providers/localStorage.js",
-        "./heyVR": "./dist/providers/heyVR.js",
-        "./telegram": "./dist/providers/telegram.js"
+        "./providers": "./dist/providers/index.js"
     },
     "files": [
         "dist/**/*.d.ts",

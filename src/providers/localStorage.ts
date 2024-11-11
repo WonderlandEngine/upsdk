@@ -1,5 +1,11 @@
 import {SaveGameProvider} from '../savegame.js';
 
+/**
+ * Save Game stored in local storage.
+ *
+ * Stores save game objects as JSON strings in local stores
+ * with given storage key.
+ */
 export class LocalStorageSaveGameProvider implements SaveGameProvider {
     name = 'localStorage';
     available = true;

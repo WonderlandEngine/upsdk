@@ -10,7 +10,7 @@
 | Applixir           | [🟡](Implemented.)        | N/A                | N/A                | N/A                       | N/A                       | N/A                       | N/A                       |
 | Telegram           |                           |                    |                    |                           |                           |                           | [🟡](Implemented.)        |
 | Discord Activities |                           |                    |                    |                           |                           |                           |                           |
-| Cookie             |                           |                    |                    |                           |                           | [🟡](Implemented.)        |                           |
+| Cookie             |                           |                    |                    |                           |                           | [✅](Used in production.) |                           |
 | LocalStorage       |                           |                    |                    |                           |                           | [🟡](Implemented.)        |                           |
 
 ## How to Use

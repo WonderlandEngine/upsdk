@@ -1,5 +1,11 @@
 import {RewardedAdProvider, UserGesture} from '../advertising.js';
 
+declare global {
+    interface Window {
+        aiptag: AIPTag;
+    }
+}
+
 /* Global declared by the adinplay SDK */
 declare class aipPlayer {
     constructor(config: {
