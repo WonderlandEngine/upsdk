@@ -1,5 +1,11 @@
 import {RewardedAdProvider, UserGesture} from '../advertising.js';
 
+declare global {
+    interface Window {
+        aiptag: AIPTag;
+    }
+}
+
 /* Global declared by the adinplay SDK */
 declare class aipPlayer {
     constructor(config: {
@@ -108,6 +114,7 @@ export class AdInPlayAdProvider implements RewardedAdProvider {
                 this.res = res;
                 this.rej = rej;
                 window.aiptag.cmd.player.push(() => {
+                    //@ts-ignore
                     window.aiptag.adplayer.startRewardedAd();
                 });
             });

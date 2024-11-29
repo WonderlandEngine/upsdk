@@ -1,13 +1,20 @@
 {
     "name": "@wonderlandengine/uber-sdk",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/index.js",
+        "./providers/crazygames": "./dist/providers/crazygames.js",
+        "./providers/cookie": "./dist/providers/cookie.js",
+        "./providers/localStorage": "./dist/providers/localStorage.js",
+        "./providers/heyVR": "./dist/providers/heyVR.js",
+        "./providers/telegram": "./dist/providers/telegram.js",
+        "./providers/ad/adInPlay": "./dist/providers/advertisingAdInPlay.js",
+        "./providers/ad/appLixir": "./dist/providers/advertisingAppLixir.js"
     },
     "files": [
         "dist/**/*.d.ts",
