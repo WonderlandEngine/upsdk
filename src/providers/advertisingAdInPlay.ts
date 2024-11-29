@@ -114,6 +114,7 @@ export class AdInPlayAdProvider implements RewardedAdProvider {
                 this.res = res;
                 this.rej = rej;
                 window.aiptag.cmd.player.push(() => {
+                    //@ts-ignore
                     window.aiptag.adplayer.startRewardedAd();
                 });
             });

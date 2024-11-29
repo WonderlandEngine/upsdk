@@ -125,6 +125,7 @@ export class HeyVRProvider
 
     save(o: any, slot?: number): Promise<boolean> {
         return this.onReady.then(() => {
+            //@ts-ignore
             if (this.isLoggedIn) return window.heyVR.saveGame.write(o, true, slot);
             return false;
         });
