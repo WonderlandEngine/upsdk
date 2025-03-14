@@ -98,6 +98,14 @@ export class CrazyGamesProvider
                 };
             });
 
+            window.CrazyGames.SDK.user.getUser().then((user: CrazyGamesUser) => {
+                if (!user) return;
+                this.cgUser = user;
+                this.user = {
+                    name: this.cgUser.username,
+                    profilePictureUrl: this.cgUser.profilePictureUrl,
+                };
+            });
             this.ready = true;
             resolveReady(true);
         };

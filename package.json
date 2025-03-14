@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/uber-sdk",
-    "version": "0.0.2",
+    "version": "0.1.1",
     "description": "Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
@@ -21,6 +21,7 @@
         "dist/**/*.js"
     ],
     "scripts": {
+        "bundle": "ESBuild ./src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outdir=bundle",
         "build": "tsc",
         "build:watch": "tsc --watch",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
@@ -38,6 +39,7 @@
     },
     "devDependencies": {
         "@wonderlandengine/prettier-config": "^1.0.0",
-        "prettier": "^3.3.3"
+        "prettier": "^3.3.3",
+        "esbuild": "^0.25.1"
     }
 }

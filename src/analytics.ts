@@ -18,7 +18,7 @@ class Analytics
         for (const p of this.providers) p.trackGameplayStart();
     }
     trackGameplayStop(): void {
-        for (const p of this.providers) p.trackLoadingStop();
+        for (const p of this.providers) p.trackGameplayStop();
     }
     trackLoadingStart(): void {
         for (const p of this.providers) p.trackLoadingStart();
