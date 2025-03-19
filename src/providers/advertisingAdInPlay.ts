@@ -104,6 +104,10 @@ export class AdInPlayAdProvider implements RewardedAdProvider {
         return !this.reachedAdMax;
     }
 
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        return this.showRewardedAd(userGesture);
+    }
+
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
         if (!userGesture.isTrusted)
             throw new Error('Ads can only be shown on user gestures');
@@ -122,7 +126,7 @@ export class AdInPlayAdProvider implements RewardedAdProvider {
             // Adlib didnt load this could be due to an adblocker, timeout etc.
             // Please add your script here that starts the content, this usually is the same script as added in AIP_REWARDEDCOMPLETE.
             this.reachedAdMax = true;
-            return Promise.reject('ad-blocked');
+            return Promise.reject({status: 'ad-blocked', provider: this});
         }
     }
 }

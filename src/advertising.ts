@@ -17,6 +17,14 @@ export interface RewardedAdProvider extends Provider {
      * other case.
      */
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider>;
+
+    /**
+     * Launches a midgame video ad.
+     * Returned promise resolves if the user finished watching the ad
+     * and rejects if an error ocurs, ad blocker is deteced or in any
+     * other case.
+     */
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider>;
 }
 
 class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements RewardedAdProvider {
@@ -32,6 +40,13 @@ class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements Rewarded
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
         for (const p of this.providers) {
             if (p.hasAd()) return p.showRewardedAd(userGesture);
+        }
+        return Promise.reject({status: 'ads-unavailable', provider: this});
+    }
+
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        for (const p of this.providers) {
+            if (p.hasAd()) return p.showMidgameAd(userGesture);
         }
         return Promise.reject({status: 'ads-unavailable', provider: this});
     }

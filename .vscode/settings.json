@@ -1,0 +1,13 @@
+{
+    "[glsl]": {
+        "editor.formatOnSave": false
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": true
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "workbench.colorTheme": "One Dark Pro Monokai Darker"
+}
