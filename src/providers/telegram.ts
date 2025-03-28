@@ -1,6 +1,12 @@
-import {User, UserProvider} from '../user.js';
-//@ts-ignore
-import {init, retrieveLaunchParams, User as TelegramUser} from '@tma.js/sdk';
+import {User, UserProvider} from './user.js';
+import {
+    init,
+    backButton,
+    mainButton,
+    viewport,
+    retrieveLaunchParams,
+    User as TelegramUser,
+} from '@telegram-apps/sdk';
 
 export interface TelegramConfig {
     apiId: string;
@@ -14,25 +20,34 @@ export class TelegramProvider implements UserProvider {
     tmaUser?: TelegramUser;
 
     constructor() {
-        const {mainButton, viewport} = init();
+        init();
 
-        mainButton.on('click', () => viewport.expand());
+        mainButton.onClick(() => {
+            viewport.expand();
+            mainButton.setParams({isVisible: false});
+        });
 
-        mainButton
-            .setBackgroundColor('#ff0000')
-            .setTextColor('#ffffff')
-            .setText('Expand')
-            .enable()
-            .show();
+        mainButton.setParams({
+            backgroundColor: '#e8008a',
+            textColor: '#ffffff',
+            text: 'Expand',
+            isEnabled: true,
+            isVisible: true,
+        });
 
-        const {initData} = retrieveLaunchParams();
-        this.tmaUser = initData?.user;
+        const off = backButton.onClick(() => {
+            off();
+            window.history.back();
+        });
+
+        const initData = retrieveLaunchParams();
+        this.tmaUser = initData?.tgWebAppData?.user;
         this._user = {
             /* FIXME: Looks like tma.js has a bug here, firstName is not optional?
              * https://docs.telegram-mini-apps.com/platform/init-data#user
              */
-            name: this.tmaUser?.firstName!,
-            profilePictureUrl: this.tmaUser?.photoUrl,
+            name: this.tmaUser?.first_name!,
+            profilePictureUrl: this.tmaUser?.photo_url,
         };
     }
 

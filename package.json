@@ -33,6 +33,7 @@
     },
     "dependencies": {
         "@heyvr/sdk-types": "^1.1.7",
+        "@telegram-apps/sdk": "^3.5.3",
         "@tma.js/sdk": "^2.7.0"
     },
     "devDependencies": {
