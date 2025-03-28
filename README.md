@@ -2,9 +2,9 @@
 
 ## Platforms
 
-[i]: ## Implemented.
-[n]: ## Not implemented.
-[u]: ## Used in production.
+[i]: ## "Implemented."
+[n]: ## "Not implemented."
+[u]: ## "Used in production."
 
 | **Platform**       | **Avertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
 | ------------------ | -------------- | ------------- | --------- | ---------------- | ------------- | ------------ | -------- |
