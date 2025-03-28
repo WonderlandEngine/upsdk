@@ -1,4 +1,4 @@
-import {RewardedAdProvider, UserGesture} from './advertising.js';
+import {RewardedAdProvider, UserGesture} from '../advertising.js';
 
 type AdFailState = 'timeout' | 'empty' | 'unsupported' | 'closed';
 

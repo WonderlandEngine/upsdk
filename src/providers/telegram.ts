@@ -1,4 +1,4 @@
-import {User, UserProvider} from './user.js';
+import {User, UserProvider} from '../user.js';
 import {
     init,
     backButton,
@@ -43,9 +43,6 @@ export class TelegramProvider implements UserProvider {
         const initData = retrieveLaunchParams();
         this.tmaUser = initData?.tgWebAppData?.user;
         this._user = {
-            /* FIXME: Looks like tma.js has a bug here, firstName is not optional?
-             * https://docs.telegram-mini-apps.com/platform/init-data#user
-             */
             name: this.tmaUser?.first_name!,
             profilePictureUrl: this.tmaUser?.photo_url,
         };
