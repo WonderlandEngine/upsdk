@@ -2,16 +2,21 @@
 
 ## Platforms
 
-| **Platform**       | **Avertising**            | **Analytics**      | **Extra**          | **Leaderboards**          | **Purchases**             | **SaveGame**              | **User**                  |
-| ------------------ | ------------------------- | ------------------ | ------------------ | ------------------------- | ------------------------- | ------------------------- | ------------------------- |
-| HeyVR              | [✅](Used in production.) |                    |                    | [✅](Used in production.) | [✅](Used in production.) | [✅](Used in production.) | [✅](Used in production.) |
-| CrazyGames         | [🟡](Implemented.)        | [🟡](Implemented.) | [🟡](Implemented.) | N/A                       | [❌](Not implemented.)    | [🟡](Implemented.)        | [🟡](Implemented.)        |
-| AdInPlay           | [🟡](Implemented.)        | N/A                | N/A                | N/A                       | N/A                       | N/A                       | N/A                       |
-| Applixir           | [🟡](Implemented.)        | N/A                | N/A                | N/A                       | N/A                       | N/A                       | N/A                       |
-| Telegram           |                           |                    |                    |                           |                           |                           | [🟡](Implemented.)        |
-| Discord Activities |                           |                    |                    |                           |                           |                           |                           |
-| Cookie             |                           |                    |                    |                           |                           | [✅](Used in production.) |                           |
-| LocalStorage       |                           |                    |                    |                           |                           | [🟡](Implemented.)        |                           |
+[i]: ## Implemented.
+[n]: ## Not implemented.
+[u]: ## Used in production.
+
+| **Platform**       | **Avertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
+| ------------------ | -------------- | ------------- | --------- | ---------------- | ------------- | ------------ | -------- |
+| HeyVR              | [✅][u]        |               |           | [✅][u]          | [✅][u]       | [✅][u]      | [✅][u]  |
+| CrazyGames         | [🟡][i]        | [🟡][i]       | [🟡][i]   | N/A              | [❌][n]       | [🟡][i]      | [🟡][i]  |
+| AdInPlay           | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
+| Applixir           | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
+| Yandex Games       | [🟡][i]        | [❌][n]       | [❌][n]   |  [❌][n]         | [❌][n]       | [❌][n]      | [❌][n]  |
+| Telegram           |                |               |           |                  |               |              | [🟡][i]  |
+| Discord Activities |                |               |           |                  |               |              |          |
+| Cookie             |                |               |           |                  |               | [✅][u]      |          |
+| LocalStorage       |                |               |           |                  |               | [🟡][i]      |          |
 
 ## How to Use
 
