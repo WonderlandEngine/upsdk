@@ -22,6 +22,7 @@ export class TelegramProvider implements UserProvider {
     constructor() {
         init();
 
+        mainButton.mount();
         mainButton.onClick(() => {
             viewport.expand();
             mainButton.setParams({isVisible: false});
@@ -35,6 +36,7 @@ export class TelegramProvider implements UserProvider {
             isVisible: true,
         });
 
+        backButton.mount();
         const off = backButton.onClick(() => {
             off();
             window.history.back();
