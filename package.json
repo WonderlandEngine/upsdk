@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/uber-sdk",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
@@ -12,6 +12,7 @@
         "./providers/cookie": "./dist/providers/cookie.js",
         "./providers/localStorage": "./dist/providers/localStorage.js",
         "./providers/heyVR": "./dist/providers/heyVR.js",
+        "./providers/poki": "./dist/providers/poki.js",
         "./providers/telegram": "./dist/providers/telegram.js",
         "./providers/ad/adInPlay": "./dist/providers/advertisingAdInPlay.js",
         "./providers/ad/appLixir": "./dist/providers/advertisingAppLixir.js"
@@ -21,7 +22,7 @@
         "dist/**/*.js"
     ],
     "scripts": {
-        "bundle": "ESBuild ./src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outdir=bundle",
+        "bundle": "ESBuild ./src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=bundle/uber-sdk.js",
         "build": "tsc",
         "build:watch": "tsc --watch",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
