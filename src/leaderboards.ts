@@ -1,5 +1,9 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const LEADERBOARDS_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/leaderboards-provider'
+);
+
 export interface LeaderboardEntry {
     /** When the leaderboard entry was created */
     createdAt?: Date;
@@ -58,5 +62,15 @@ class Leaderboards
         return this.providers[this.providers.length - 1].getScores(leaderboardId, maxCount);
     }
 }
+// Check if instance already exists in global registry
+if (!(LEADERBOARDS_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, LEADERBOARDS_PROVIDER_SYMBOL, {
+        value: new Leaderboards(),
+        writable: false,
+        configurable: false,
+    });
+}
 
-export const leaderboards = new Leaderboards();
+export const leaderboards = (globalThis as any)[
+    LEADERBOARDS_PROVIDER_SYMBOL
+] as Leaderboards;

@@ -1,5 +1,8 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const PURCHASES_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/purchases-provider'
+);
 /**
  * Purchases Provider
  *
@@ -58,4 +61,13 @@ class Purchases
     }
 }
 
-export const purchases = new Purchases();
+// Check if instance already exists in global registry
+if (!(PURCHASES_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, PURCHASES_PROVIDER_SYMBOL, {
+        value: new Purchases(),
+        writable: false,
+        configurable: false,
+    });
+}
+
+export const purchases = (globalThis as any)[PURCHASES_PROVIDER_SYMBOL] as Purchases;

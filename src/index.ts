@@ -14,4 +14,4 @@ export * from './providers/crazygames.js';
 export * from './providers/poki.js';
 export * from './providers/heyVR.js';
 export * from './providers/localStorage.js';
-//export * from './providers/telegram.js';
+export * from './providers/telegram.js';

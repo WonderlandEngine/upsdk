@@ -69,6 +69,12 @@ export class YandexGamesAdProvider implements RewardedAdProvider {
         document.body.appendChild(script);
     }
 
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        return this.showRewardedAd(userGesture);
+    }
+
+    available?: boolean;
+
     hasAd() {
         return !this.reachedAdMax;
     }

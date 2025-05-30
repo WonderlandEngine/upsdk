@@ -1,5 +1,9 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const ADVERTISING_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/advertising-provider'
+);
+
 /** A user event that is allowed to trigger an ad */
 export type UserGesture = MouseEvent | SubmitEvent | PointerEvent | TouchEvent;
 
@@ -52,4 +56,13 @@ class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements Rewarded
     }
 }
 
-export const ads = new Ads();
+// Check if instance already exists in global registry
+if (!(ADVERTISING_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, ADVERTISING_PROVIDER_SYMBOL, {
+        value: new Ads(),
+        writable: false,
+        configurable: false,
+    });
+}
+
+export const ads = (globalThis as any)[ADVERTISING_PROVIDER_SYMBOL] as Ads;

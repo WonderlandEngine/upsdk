@@ -1,5 +1,9 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const SAVE_GAME_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/save-game-provider'
+);
+
 /**
  * Save Game Provider
  *
@@ -48,4 +52,11 @@ class SaveGame
     }
 }
 
-export const saveGame = new SaveGame();
+if (!(SAVE_GAME_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, SAVE_GAME_PROVIDER_SYMBOL, {
+        value: new SaveGame(),
+        writable: false,
+        configurable: false,
+    });
+}
+export const saveGame = (globalThis as any)[SAVE_GAME_PROVIDER_SYMBOL] as SaveGame;

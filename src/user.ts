@@ -1,6 +1,9 @@
 import {Emitter} from '@wonderlandengine/api';
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+// Use a global symbol to ensure singleton across contexts
+const USER_PROVIDER_SYMBOL = Symbol.for('@wonderlandengine/uber-sdk/user-provider');
+
 /** A logged in user */
 export interface User {
     name: string;
@@ -49,4 +52,13 @@ class UserProviderManager
     }
 }
 
-export const user = new UserProviderManager();
+// Check if instance already exists in global registry
+if (!(USER_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, USER_PROVIDER_SYMBOL, {
+        value: new UserProviderManager(),
+        writable: false,
+        configurable: false,
+    });
+}
+
+export const user = (globalThis as any)[USER_PROVIDER_SYMBOL] as UserProviderManager;

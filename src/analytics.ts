@@ -1,5 +1,9 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const ANALYTICS_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/analytics-provider'
+);
+
 export interface AnalyticsProvider extends Provider {
     trackGameplayStart(): void;
     trackGameplayStop(): void;
@@ -28,4 +32,12 @@ class Analytics
     }
 }
 
-export const analytics = new Analytics();
+if (!(ANALYTICS_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, ANALYTICS_PROVIDER_SYMBOL, {
+        value: new Analytics(),
+        writable: false,
+        configurable: false,
+    });
+}
+
+export const analytics = (globalThis as any)[ANALYTICS_PROVIDER_SYMBOL] as Analytics;
