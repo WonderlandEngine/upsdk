@@ -23,9 +23,6 @@
         "build:prod": "esbuild src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.min.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk",
         "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist",
         "prepack": "npm run build",
-        "Xbundle": "ESBuild ./src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=bundle/uber-sdk.js",
-        "Xbuild": "tsc",
-        "Xbuild:watch": "tsc --watch",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
     },
     "author": "Jonathan Hale, Timmy Kokke, Wonderland GmbH",
