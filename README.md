@@ -9,7 +9,7 @@
 | **Platform**       | **Avertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
 | ------------------ | -------------- | ------------- | --------- | ---------------- | ------------- | ------------ | -------- |
 | HeyVR              | [✅][u]        |               |           | [✅][u]          | [✅][u]       | [✅][u]      | [✅][u]  |
-| CrazyGames         | [🟡][i]        | [🟡][i]       | [🟡][i]   | N/A              | [❌][n]       | [🟡][i]      | [🟡][i]  |
+| CrazyGames         | [✅][u]        | [✅][u]       | [✅][u]   | N/A              | [❌][n]       | [✅][u]      | [✅][u]  |
 | AdInPlay           | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
 | Applixir           | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
 | Yandex Games       | [🟡][i]        | [❌][n]       | [❌][n]   |  [❌][n]         | [❌][n]       | [❌][n]      | [❌][n]  |
@@ -37,16 +37,14 @@ saveGame.save({level: 42});
 To register a provider, run this code as early as possible:
 
 ```ts
-import {saveGame, user, leaderboards} from '@wonderlandengine/uber-sdk';
-import {HeyVRProvider} from '@wonderlandengine/uber-sdk/providers';
-import {CookieSaveGameProvider} from '@wonderlandengine/uber-sdk/providers';
+import {saveGame, user, leaderboards, HeyVRProvider, CookieSaveGameProvider}} from '@wonderlandengine/uber-sdk';
 
 /* Registering a provider is simple */
 saveGame.register(new CookieSaveGameProvider());
 
 /* Many providers support multiple services, register them to the ones you use: */
-const heyVR = new HeyVRProvider();
-saveGame.register(HeyVR);
-user.register(HeyVR);
-leaderboards.register(HeyVR);
+const heyVR = new HeyVRProvider('your-game-id');
+saveGame.register(heyVR);
+user.register(heyVR);
+leaderboards.register(heyVR);
 ```
