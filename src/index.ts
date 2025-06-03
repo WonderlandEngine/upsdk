@@ -9,6 +9,7 @@ export * from './provider.js';
 
 export * from './providers/advertisingAdInPlay.js';
 export * from './providers/advertisingAppLixir.js';
+export * from './providers/advertisingYandexGames.js';
 export * from './providers/cookie.js';
 export * from './providers/crazygames.js';
 export * from './providers/poki.js';
