@@ -1,5 +1,4 @@
-import {RewardedAdProvider, UserGesture} from '../advertising.js';
-import {AnalyticsProvider} from '../analytics.js';
+import {RewardedAdProvider, UserGesture, AnalyticsProvider} from '@wonderlandengine/upsdk';
 
 declare global {
     interface Window {

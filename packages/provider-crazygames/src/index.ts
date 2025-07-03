@@ -1,8 +1,12 @@
-import {RewardedAdProvider, UserGesture} from '../advertising.js';
-import {AnalyticsProvider} from '../analytics.js';
-import {ExtraProvider} from '../extra.js';
-import {SaveGameProvider} from '../savegame.js';
-import {User, UserProvider} from '../user.js';
+import {
+    RewardedAdProvider,
+    UserGesture,
+    AnalyticsProvider,
+    ExtraProvider,
+    SaveGameProvider,
+    User,
+    UserProvider,
+} from '@wonderlandengine/upsdk';
 
 interface CrazyGamesUser {
     username: string;

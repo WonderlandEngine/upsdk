@@ -1,4 +1,4 @@
-import {User, UserProvider} from '../user.js';
+import {User, UserProvider} from '@wonderlandengine/upsdk';
 
 export interface TelegramConfig {
     apiId: string;

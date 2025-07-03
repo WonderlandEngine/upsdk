@@ -1,9 +1,13 @@
-import {User, UserProvider} from '../user.js';
 import {heyVRSDK} from '@heyvr/sdk-types';
-import {SaveGameProvider} from '../savegame.js';
-import {LeaderboardEntry, LeaderboardsProvider} from '../leaderboards.js';
-import {PurchasesProvider} from '../purchases.js';
 import {Emitter} from '@wonderlandengine/api';
+import {
+    UserProvider,
+    SaveGameProvider,
+    LeaderboardsProvider,
+    PurchasesProvider,
+    User,
+    LeaderboardEntry,
+} from '@wonderlandengine/upsdk';
 
 declare global {
     interface Window {

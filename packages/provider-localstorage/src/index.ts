@@ -1,4 +1,4 @@
-import {SaveGameProvider} from '../savegame.js';
+import {SaveGameProvider} from '@wonderlandengine/upsdk';
 
 /**
  * Save Game stored in local storage.

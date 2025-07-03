@@ -48,3 +48,10 @@ saveGame.register(heyVR);
 user.register(heyVR);
 leaderboards.register(heyVR);
 ```
+
+## NPM Scripts
+
+- `npm run clean:tsc` cleans all typescript build artifacts
+- `npm run build --workspaces` => builds all
+- `npm pack --workspaces` => creates all packages
+- `npm publish --workspaces` => publishes all packages
