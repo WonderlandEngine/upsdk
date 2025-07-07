@@ -1,43 +1,52 @@
 {
     "name": "@wonderlandengine/uber-sdk",
-    "version": "0.0.2",
+    "version": "0.2.0",
     "description": "Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./dist/index.js",
-        "./providers/crazygames": "./dist/providers/crazygames.js",
-        "./providers/cookie": "./dist/providers/cookie.js",
-        "./providers/localStorage": "./dist/providers/localStorage.js",
-        "./providers/heyVR": "./dist/providers/heyVR.js",
-        "./providers/telegram": "./dist/providers/telegram.js",
-        "./providers/ad/adInPlay": "./dist/providers/advertisingAdInPlay.js",
-        "./providers/ad/appLixir": "./dist/providers/advertisingAppLixir.js"
+        ".": {
+            "types": "./dist/index.d.ts",
+            "development": "./dist/index.js",
+            "default": "./dist/index.min.js"
+        }
     },
     "files": [
         "dist/**/*.d.ts",
         "dist/**/*.js"
     ],
     "scripts": {
-        "build": "tsc",
-        "build:watch": "tsc --watch",
+        "build": "npm run build:dev && npm run build:prod && npm run build:types",
+        "build:dev": "esbuild src/index.ts --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk",
+        "build:prod": "esbuild src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.min.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk",
+        "build:types": "tsc --emitDeclarationOnly --declaration --declarationDir dist",
+        "prepack": "npm run build",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
     },
     "author": "Jonathan Hale, Timmy Kokke, Wonderland GmbH",
     "license": "MIT",
     "prettier": "@wonderlandengine/prettier-config",
     "peerDependencies": {
-        "@wonderlandengine/api": "^1.1.0"
+        "@wonderlandengine/api": "^1.1.0",
+        "@telegram-apps/sdk": "^3.5.3"
+    },
+    "optionalDependencies": {
+        "@telegram-apps/sdk": "^3.5.3"
+    },
+    "peerDependenciesMeta": {
+        "@telegram-apps/sdk": {
+            "optional": true
+        }
     },
     "dependencies": {
         "@heyvr/sdk-types": "^1.1.7",
-        "@telegram-apps/sdk": "^3.5.3",
         "typescript": "^5.8.2"
     },
     "devDependencies": {
         "@wonderlandengine/prettier-config": "^1.0.0",
-        "prettier": "^3.3.3"
+        "prettier": "^3.3.3",
+        "esbuild": "^0.25.1"
     }
 }

@@ -98,6 +98,14 @@ export class CrazyGamesProvider
                 };
             });
 
+            window.CrazyGames.SDK.user.getUser().then((user: CrazyGamesUser) => {
+                if (!user) return;
+                this.cgUser = user;
+                this.user = {
+                    name: this.cgUser.username,
+                    profilePictureUrl: this.cgUser.profilePictureUrl,
+                };
+            });
             this.ready = true;
             resolveReady(true);
         };
@@ -111,6 +119,17 @@ export class CrazyGamesProvider
     }
 
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        return this._showAd(userGesture, 'rewarded');
+    }
+
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        return this._showAd(userGesture, 'midgame');
+    }
+
+    private _showAd(
+        userGesture,
+        type: 'rewarded' | 'midgame'
+    ): Promise<RewardedAdProvider> {
         if (!userGesture.isTrusted)
             throw new Error('Ads can only be shown on user gestures');
 
@@ -122,16 +141,16 @@ export class CrazyGamesProvider
                     /* Ad not filled or error! */
                     switch (error.code) {
                         case 'unfilled':
-                            rej(error.code);
+                            rej({status: error.code, provider: this});
                             break;
                         case 'other':
-                            rej(error.message);
+                            rej({status: error.message, provider: this});
                             break;
                     }
                 },
                 adStarted: () => console.log('Start rewarded ad'),
             };
-            window.CrazyGames.SDK.ad.requestAd('rewarded', callbacks);
+            window.CrazyGames.SDK.ad.requestAd(type, callbacks);
         });
     }
 

@@ -1,31 +1,38 @@
 import {AbstractGlobalProvider, Provider} from './provider.js';
 
+const SAVE_GAME_PROVIDER_SYMBOL = Symbol.for(
+    '@wonderlandengine/uber-sdk/save-game-provider'
+);
+
 /**
  * Save Game Provider
  *
- * Interface for services provinding ability to save and load game state.
+ * Interface for services providing ability to save and load game state.
  * Storage might be in the cloud or local.
  */
 export interface SaveGameProvider extends Provider {
-    /** Save an object to the save game storage */
+    /**
+     * Save an object to the save game storage
+     * @param o The object to save
+     */
     save(o: any): void;
     /**
      * Load an object from the save game storage
      *
-     * The out param is a useful way to specify defaults.
-     *
-     * @param out Object to load the save game into, overwriting entries.
-     * @returns `out` with loaded values assigned, or unchanged if loading failed.
-     *     If no `out` param is set, the return value will be null or the save game.
+     * @param out Optional object to load the save game into, overwriting entries.
+     *     This is a useful way to specify defaults.
+     * @returns The loaded save game object. If `out` was provided, returns `out` 
+     *     with loaded values assigned, or unchanged if loading failed.
+     *     If no `out` param is set, returns the loaded save game or null if no save exists.
      */
     load(out?: any): any | null;
 }
 
 /**
- * Global {@link SaveGameProvider}.
+ * Global save game provider manager that aggregates multiple save game providers
  *
  * Allows registering multiple services to automatically detect
- * available ones and fall-back to others.
+ * available ones and fall back to others.
  */
 class SaveGame
     extends AbstractGlobalProvider<SaveGameProvider>
@@ -33,6 +40,11 @@ class SaveGame
 {
     name = 'uber-savegame-provider';
 
+    /**
+     * Load save game data from the first provider that has saved data
+     * @param out Optional object to merge loaded data into
+     * @returns The loaded data or null if no saves were found
+     */
     load(out?: any): any | null {
         for (const p of this.providers) {
             let v = p.load(out);
@@ -43,9 +55,27 @@ class SaveGame
         return null;
     }
 
+    /**
+     * Save game data to all registered providers
+     * @param o The object to save
+     */
     save(o: any): void {
         for (const p of this.providers) p.save(o);
     }
 }
 
-export const saveGame = new SaveGame();
+// Check if instance already exists in global registry
+if (!(SAVE_GAME_PROVIDER_SYMBOL in globalThis)) {
+    Object.defineProperty(globalThis, SAVE_GAME_PROVIDER_SYMBOL, {
+        value: new SaveGame(),
+        writable: false,
+        configurable: false,
+    });
+}
+
+/**
+ * Global save game provider instance
+ * 
+ * Use this to save and load game state across different storage providers.
+ */
+export const saveGame = (globalThis as any)[SAVE_GAME_PROVIDER_SYMBOL] as SaveGame;

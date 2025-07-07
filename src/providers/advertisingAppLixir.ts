@@ -46,6 +46,10 @@ export class AppLixirAdProvider implements RewardedAdProvider {
         return !this.reachedAdMax;
     }
 
+    showMidgameAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
+        return this.showRewardedAd(userGesture);
+    }
+
     showRewardedAd(userGesture: UserGesture): Promise<RewardedAdProvider> {
         if (!userGesture.isTrusted)
             throw new Error('Ads can only be shown on user gestures');
@@ -100,7 +104,7 @@ export class AppLixirAdProvider implements RewardedAdProvider {
                         break;
                     /* You returned an error from your RMS endpoint */
                     case 'ad-rejected':
-                        rej(status);
+                        rej({status, provider: this});
                         break;
                 }
             };
