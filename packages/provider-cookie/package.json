@@ -1,0 +1,32 @@
+{
+    "name": "@wonderlandengine/upsdk-provider-cookie",
+    "version": "0.1.1",
+    "description": "Cookie provider for @wonderlandengine/upsdk",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "development": "./dist/index.js",
+            "default": "./dist/index.min.js"
+        }
+    },
+    "files": [
+        "dist/**/*.d.ts",
+        "dist/**/*.js"
+    ],
+    "scripts": {
+        "build": "npm run build:dev && npm run build:prod && npm run build:types",
+        "build:dev": "esbuild src/index.ts --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk --external:@wonderlandengine/upsdk",
+        "build:prod": "esbuild src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.min.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk --external:@wonderlandengine/upsdk",
+        "build:types": "tsc -b"
+    },
+    "author": "Jonathan Hale, Timmy Kokke, Wonderland GmbH",
+    "license": "MIT",
+    "prettier": "@wonderlandengine/prettier-config",
+    "dependencies": {
+        "@wonderlandengine/upsdk": "^0.2.0"
+    }
+}

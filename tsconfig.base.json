@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "composite": true,
+        "newLine": "LF",
+        "allowJs": true,
+        "strict": false,
+        "experimentalDecorators": true,
+        "skipLibCheck": true
+    }
+}
