@@ -59,4 +59,4 @@ leaderboards.register(heyVR);
 - `npm run clean:tsc` cleans all typescript build artifacts
 - `npm run build --workspaces` => builds all
 - `npm pack --workspaces` => creates all packages
-- `npm publish --workspaces` --access public => publishes all packages
+- `npm publish --workspaces --access public` => publishes all packages
