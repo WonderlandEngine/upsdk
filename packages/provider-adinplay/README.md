@@ -5,13 +5,13 @@ This package provides integration with the AdinPlay advertising platform for the
 ## Installation
 
 ```bash
-npm install @uber-sdk/provider-adinplay
+npm install @wonderlandengine/upsdk-provider-adinplay
 ```
 
 ## Usage
 
 ```javascript
-import { AdinPlayProvider } from '@uber-sdk/provider-adinplay';
+import { AdinPlayProvider } from '@wonderlandengine/upsdk-provider-adinplay';
 
 const adProvider = new AdinPlayProvider({
     appId: 'your-adinplay-app-id',
