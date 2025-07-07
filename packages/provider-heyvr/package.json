@@ -28,5 +28,8 @@
     "prettier": "@wonderlandengine/prettier-config",
     "dependencies": {
         "@wonderlandengine/upsdk": "^0.2.0"
+    },
+    "devDependencies": {
+        "@heyvr/sdk-types": "^1.3.1"
     }
 }

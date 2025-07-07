@@ -28,5 +28,8 @@
     "prettier": "@wonderlandengine/prettier-config",
     "dependencies": {
         "@wonderlandengine/upsdk": "^0.2.0"
+    },
+    "devDependencies": {
+        "@telegram-apps/sdk": "^3.11.4"
     }
 }
