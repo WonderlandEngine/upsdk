@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/upsdk-provider-telegram",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Telegram provider for @wonderlandengine/upsdk",
     "type": "module",
     "main": "./dist/index.js",
@@ -27,9 +27,7 @@
     "license": "MIT",
     "prettier": "@wonderlandengine/prettier-config",
     "dependencies": {
-        "@wonderlandengine/upsdk": "^0.2.0"
-    },
-    "devDependencies": {
+        "@wonderlandengine/upsdk": "^0.2.0",
         "@telegram-apps/sdk": "^3.11.4"
     }
 }
