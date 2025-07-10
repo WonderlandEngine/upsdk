@@ -10,6 +10,8 @@ export interface User {
     name: string;
     /** URL to the user's profile picture */
     profilePictureUrl?: string;
+    /** Optional URL to avatar model */
+    avatarUrl?: string;
 }
 
 /** Interface for services that provide user accounts */

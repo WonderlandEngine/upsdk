@@ -10,6 +10,7 @@
         {"path": "packages/provider-heyvr"},
         {"path": "packages/provider-localstorage"},
         {"path": "packages/provider-poki"},
-        {"path": "packages/provider-telegram"}
+        {"path": "packages/provider-telegram"},
+        {"path": "packages/provider-viverse"}
     ]
 }
