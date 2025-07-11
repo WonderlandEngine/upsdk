@@ -1,7 +1,18 @@
-# Universal Platform (UP) SDK for Web Game Platform Services
+<div align="center">
+  <a href="https://github.com/WonderlandEngine/upsdk/#readme">
+    <picture>
+      <img alt="UPSDK logo" src="https://wonderlandengine.com/upsdk/upsdk-logo_256.png" height="128">
+    </picture>
+  </a>
+  <h1>UPSDK - Universal Platform SDK for Web Game Platform Services</h1>
+
+<a href="https://wonderlandengine.com"><img alt="Wonderland Engine logo" src="https://img.shields.io/badge/MADE%20BY%20Wonderland%20Engine-2b2b2b.svg"></a>
+<a href="https://www.npmjs.com/package/@wonderlandengine/upsdk"><img alt="NPM version" src="https://img.shields.io/npm/v/@wonderlandengine/upsdk.svg"></a>
+<a href="https://github.com/WonderlandEngine/upsdk/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/npm/l/@wonderlandengine/upsdk.svg"></a>
+
+</div>
 
 Integrate UPSDK once and publish your game to any platform.
-
 
 ```ts
 import {
