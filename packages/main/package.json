@@ -1,7 +1,7 @@
 {
     "name": "@wonderlandengine/upsdk",
     "version": "0.2.1",
-    "description": "Platform SDK to abstract various Web Game Platform services.",
+    "description": "Universal Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
@@ -23,7 +23,15 @@
         "build:prod": "esbuild src/index.ts --minify --bundle --format=esm --platform=browser --target=esnext --outfile=dist/index.min.js --external:./node_modules/* --external:@wonderlandengine/api --external:@telegram-apps/sdk --external:@wonderlandengine/upsdk-provider-*",
         "build:types": "tsc -b"
     },
-    "author": "Jonathan Hale, Timmy Kokke, Wonderland GmbH",
+    "bugs": {
+        "url": "https://github.com/WonderlandEngine/upsdk/issues"
+    },
+    "homepage": "https://github.com/WonderlandEngine/upsdk#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/WonderlandEngine/upsdk.git"
+    },
+    "author": "Jonathan Hale, Timmy Kokke, Robot Invader Inc",
     "license": "MIT",
     "prettier": "@wonderlandengine/prettier-config"
 }
