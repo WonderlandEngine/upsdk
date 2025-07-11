@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://github.com/WonderlandEngine/upsdk/#readme">
     <picture>
-      <img alt="UPSDK logo" src="https://wonderlandengine.com/static/upsdk-logo_256.png" height="128">
+      <img alt="UPSDK logo" src="https://wonderlandengine.com/upsdk/upsdk-logo_256.png" height="128">
     </picture>
   </a>
   <h1>UPSDK - Universal Platform SDK for Web Game Platform Services</h1>
