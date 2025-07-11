@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/upsdk",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Universal Platform SDK to abstract various Web Game Platform services.",
     "type": "module",
     "main": "./dist/index.js",
