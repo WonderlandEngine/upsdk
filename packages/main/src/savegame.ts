@@ -21,7 +21,7 @@ export interface SaveGameProvider extends Provider {
      *
      * @param out Optional object to load the save game into, overwriting entries.
      *     This is a useful way to specify defaults.
-     * @returns The loaded save game object. If `out` was provided, returns `out` 
+     * @returns The loaded save game object. If `out` was provided, returns `out`
      *     with loaded values assigned, or unchanged if loading failed.
      *     If no `out` param is set, returns the loaded save game or null if no save exists.
      */
@@ -38,7 +38,7 @@ class SaveGame
     extends AbstractGlobalProvider<SaveGameProvider>
     implements SaveGameProvider
 {
-    name = 'uber-savegame-provider';
+    name = 'universal-savegame-provider';
 
     /**
      * Load save game data from the first provider that has saved data
@@ -75,7 +75,7 @@ if (!(SAVE_GAME_PROVIDER_SYMBOL in globalThis)) {
 
 /**
  * Global save game provider instance
- * 
+ *
  * Use this to save and load game state across different storage providers.
  */
 export const saveGame = (globalThis as any)[SAVE_GAME_PROVIDER_SYMBOL] as SaveGame;

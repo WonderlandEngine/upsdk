@@ -4,7 +4,7 @@ const EXTRA_PROVIDER_SYMBOL = Symbol.for('@wonderlandengine/uber-sdk/extra-provi
 
 /**
  * Extra Provider
- * 
+ *
  * Interface for services that provide additional features like celebrations or effects.
  */
 export interface ExtraProvider extends Provider {
@@ -16,11 +16,11 @@ export interface ExtraProvider extends Provider {
 
 /**
  * Global extra provider manager that aggregates multiple extra feature providers
- * 
+ *
  * Allows registering multiple services to trigger effects across all of them.
  */
 class Extra extends AbstractGlobalProvider<ExtraProvider> implements ExtraProvider {
-    name = 'uber-extra-provider';
+    name = 'universal-extra-provider';
 
     /**
      * Trigger celebration effects on all registered providers
@@ -41,7 +41,7 @@ if (!(EXTRA_PROVIDER_SYMBOL in globalThis)) {
 
 /**
  * Global extra provider instance
- * 
+ *
  * Use this to trigger additional features like celebrations across different providers.
  */
 export const extra = (globalThis as any)[EXTRA_PROVIDER_SYMBOL] as Extra;

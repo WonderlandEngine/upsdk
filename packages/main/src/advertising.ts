@@ -17,18 +17,18 @@ export enum AdError {
 
 /**
  * Rewarded Ad Provider
- * 
+ *
  * Interface for services that provide rewarded and midgame video advertisements.
  */
 export interface RewardedAdProvider extends Provider {
-    /** 
-     * Check whether there is an ad available to show 
+    /**
+     * Check whether there is an ad available to show
      * @returns True if an ad is available
      */
     hasAd(): boolean;
     /**
      * Launches a rewarded video ad.
-     * 
+     *
      * @param userGesture A user gesture event that triggered the ad request
      * @returns Promise that resolves with the provider if the user finished watching the ad,
      *          rejects if an error occurs, ad blocker is detected or in any other failure case
@@ -37,7 +37,7 @@ export interface RewardedAdProvider extends Provider {
 
     /**
      * Launches a midgame video ad.
-     * 
+     *
      * @param userGesture A user gesture event that triggered the ad request
      * @returns Promise that resolves with the provider if the user finished watching the ad,
      *          rejects if an error occurs, ad blocker is detected or in any other failure case
@@ -47,11 +47,11 @@ export interface RewardedAdProvider extends Provider {
 
 /**
  * Global advertising provider manager that aggregates multiple ad providers
- * 
+ *
  * Shows ads from the first provider that has available inventory.
  */
 class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements RewardedAdProvider {
-    name = 'uber-ad-provider';
+    name = 'universal-ad-provider';
 
     /**
      * Check if any provider has an ad available
@@ -66,7 +66,7 @@ class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements Rewarded
 
     /**
      * Show a rewarded ad from the first provider with available inventory
-     * 
+     *
      * @param userGesture User gesture that triggered the ad request
      * @returns Promise that resolves if the ad was watched completely
      * @throws Object with status 'ads-unavailable' if no ads are available
@@ -80,7 +80,7 @@ class Ads extends AbstractGlobalProvider<RewardedAdProvider> implements Rewarded
 
     /**
      * Show a midgame ad from the first provider with available inventory
-     * 
+     *
      * @param userGesture User gesture that triggered the ad request
      * @returns Promise that resolves if the ad was watched completely
      * @throws Object with status 'ads-unavailable' if no ads are available
@@ -104,7 +104,7 @@ if (!(ADVERTISING_PROVIDER_SYMBOL in globalThis)) {
 
 /**
  * Global advertising provider instance
- * 
+ *
  * Use this to show ads across different advertising networks.
  */
 export const ads = (globalThis as any)[ADVERTISING_PROVIDER_SYMBOL] as Ads;

@@ -39,7 +39,7 @@ class UserProviderManager
     extends AbstractGlobalProvider<UserProvider>
     implements UserProvider
 {
-    name = 'uber-user-provider';
+    name = 'universal-user-provider';
 
     /** Emitter that fires when any provider's authentication state changes */
     onAuthChange = new Emitter<[boolean]>();

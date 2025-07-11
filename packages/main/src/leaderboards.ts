@@ -33,10 +33,10 @@ export interface LeaderboardsProvider extends Provider {
      *         for this user, rejects when posting failed.
      */
     postScore(leaderboardId: string, score: number): Promise<boolean>;
-    
+
     /**
      * Retrieve scores from a leaderboard
-     * 
+     *
      * @param leaderboardId Id of the leaderboard
      * @param maxCount Maximum number of entries to retrieve
      * @returns Promise that resolves to an array of leaderboard entries
@@ -56,11 +56,11 @@ class Leaderboards
     extends AbstractGlobalProvider<LeaderboardsProvider>
     implements LeaderboardsProvider
 {
-    name = 'uber-leaderboards-provider';
+    name = 'universal-leaderboards-provider';
 
     /**
      * Post a score to all registered leaderboard providers
-     * 
+     *
      * @param leaderboardId Id of the leaderboard
      * @param score Score to post
      * @returns Promise that resolves to true only if the score was better on all leaderboards
@@ -76,7 +76,7 @@ class Leaderboards
 
     /**
      * Get scores from the highest priority leaderboard provider
-     * 
+     *
      * @param leaderboardId Id of the leaderboard
      * @param maxCount Maximum number of entries to retrieve
      * @returns Promise that resolves to an array of leaderboard entries
@@ -99,7 +99,7 @@ if (!(LEADERBOARDS_PROVIDER_SYMBOL in globalThis)) {
 
 /**
  * Global leaderboards provider instance
- * 
+ *
  * Use this to manage leaderboards across different backend providers.
  */
 export const leaderboards = (globalThis as any)[

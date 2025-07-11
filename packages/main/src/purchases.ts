@@ -20,7 +20,7 @@ export interface PurchasesProvider extends Provider {
 
     /**
      * Check whether an item is purchased.
-     * 
+     *
      * @param itemId Id of the item to check
      * @returns True if the item has been purchased, false otherwise
      */
@@ -28,7 +28,7 @@ export interface PurchasesProvider extends Provider {
 
     /**
      * Get URL at which to purchase the item
-     * 
+     *
      * @param itemId Id of the item
      * @returns Promise that resolves to the purchase URL
      */
@@ -45,11 +45,11 @@ class Purchases
     extends AbstractGlobalProvider<PurchasesProvider>
     implements PurchasesProvider
 {
-    name = 'uber-purchases-provider';
+    name = 'universal-purchases-provider';
 
     /**
      * Purchase an item using the highest priority provider
-     * 
+     *
      * @param itemId Id of the item to purchase
      * @param count Number of items to purchase, defaults to 1
      * @returns Promise that resolves to true if purchase was successful
@@ -64,7 +64,7 @@ class Purchases
 
     /**
      * Get the purchase URL for an item from the highest priority provider
-     * 
+     *
      * @param itemId Id of the item
      * @returns Promise that resolves to the purchase URL
      * @throws Error if no providers are available
@@ -77,7 +77,7 @@ class Purchases
 
     /**
      * Check if an item has been purchased in any of the registered providers
-     * 
+     *
      * @param itemId Id of the item to check
      * @returns True if the item is purchased in at least one provider
      */
@@ -100,7 +100,7 @@ if (!(PURCHASES_PROVIDER_SYMBOL in globalThis)) {
 
 /**
  * Global purchases provider instance
- * 
+ *
  * Use this to manage in-app purchases across different payment providers.
  */
 export const purchases = (globalThis as any)[PURCHASES_PROVIDER_SYMBOL] as Purchases;

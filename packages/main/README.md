@@ -1,31 +1,64 @@
-# Abstraction SDK for Web Games Platform Services
+# Universal Platform (UP) SDK for Web Game Platform Services
+
+Integrate UPSDK once and publish your game to any platform.
+
+
+```ts
+import {
+    advertising,
+    analytics
+    extra,
+    leaderboards,
+    purchases,
+    saveGame,
+    user,
+} from '@wonderlandengine/upsdk';
+
+async function main() {
+    analytics.trackGameplayStart();
+
+    /* Get username/profile picture/avatar of logged in users */
+    if(!user.isLoggedIn()) await user.requestLogin();
+    console.log('Welcome,', user.user.name);
+
+    /* Post scores and read from leaderboards */
+    leaderboards.postScore('my-leaderboard', 9001);
+
+    /* Use cloud saves (or fall back to cookie/local storage) */
+    saveGame.save({level: 42, exp: 123013, nickname: 'Neo'})
+
+    /* Show ads - rewarded or midroll! */
+    document.queryElement('#watch-ad').addEventListener('click', e => {
+        if(!advertising.hasAd()) return;
+
+        advertising.showRewardedAd(e)
+            .then(giveReward)
+            .catch(handleAdError);
+    });
+
+    /* Make in-app purchases! */
+    purchases.purchaseItem('dev-speed-potion', 100);
+
+    analytics.trackGameplayStop();
+
+    /* Use special platform features! */
+    extra.celebrate();
+}
+```
 
 ## Providers
 
-[i]: ## "Implemented."
-[n]: ## "Not implemented."
-[u]: ## "Used in production."
+Providers implement the interfaces provided in this package for the individual platforms.
 
-| **Platform**                                                                                | **Advertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
-| ------------------------------------------------------------------------------------------- | -------------- | ------------- | --------- | ---------------- | ------------- | ------------ | -------- |
-| [HeyVR](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-heyvr)               | [✅][u]        |               |           | [✅][u]         | [✅][u]       | [✅][u]      | [✅][u]  |
-| [CrazyGames](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-crazygames)     | [✅][u]        | [✅][u]       | [✅][u]   | N/A             | [❌][n]       | [✅][u]      | [✅][u]  |
-| [Poki](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-poki)                 | [🟡][i]        | [🟡][i]       |    |              |        |       |   |
-| [AdInPlay](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-adinplay)         | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
-| [Applixir](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-applixir)         | [🟡][i]        | N/A           | N/A       | N/A              | N/A           | N/A          | N/A      |
-| [Yandex Games](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-yandexgames)  | [🟡][i]        | [❌][n]       | [❌][n]   |  [❌][n]        | [❌][n]       | [❌][n]      | [❌][n]  |
-| [Telegram](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-telegram)         |                |               |           |                  |               |              | [🟡][i]  |
-| [Cookie](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-cookie)             |                |               |           |                  |               | [✅][u]      |          |
-| [LocalStorage](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-localstorage) |                |               |           |                  |               | [🟡][i]      |          |
-| Discord Activities                                                                          |                |               |           |                  |               |              |          |
+Find a list of all available providers [on the GitHub repository](https://github.com/WonderlandEngine/upsdk/#providers).
 
 ## How to Use
 
 The SDK is designed to allow multiple platforms at the same time, choosing whichever is available
-and allowing to provide fallbacks, e.g. to cookies, if no logged-in service is available.
+and providing fallbacks, e.g. save games with cookies or local storage, if no service is available.
 
-The services you want to support need to be registered to "global providers". These global
-providers can be used from anywhere in the code:
+Each service you want to support needs to be registered with "global providers".
+These global providers can be used from anywhere in the code:
 
 ```ts
 import {saveGame} from '@wonderlandengine/upsdk';

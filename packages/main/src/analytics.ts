@@ -40,7 +40,7 @@ class Analytics
     extends AbstractGlobalProvider<AnalyticsProvider>
     implements AnalyticsProvider
 {
-    name = 'uber-analytics-provider';
+    name = 'universal-analytics-provider';
 
     /**
      * Track gameplay start event on all registered providers
