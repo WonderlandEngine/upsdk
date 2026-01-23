@@ -189,4 +189,9 @@ export class HeyVRProvider
         // TODO this doesn't support cross-game items.
         return window.heyVR.inventory.getItemURL(this._gameId, itemId);
     }
+
+    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+        // HeyVR SDK does not support fetching item details by IDs
+        return null;
+    }
 }

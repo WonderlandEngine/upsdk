@@ -33,6 +33,8 @@ export interface PurchasesProvider extends Provider {
      * @returns Promise that resolves to the purchase URL
      */
     getItemURL(itemId: string): Promise<string>;
+
+    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]>;
 }
 
 /**
@@ -45,6 +47,7 @@ class Purchases
     extends AbstractGlobalProvider<PurchasesProvider>
     implements PurchasesProvider
 {
+    available?: boolean;
     name = 'universal-purchases-provider';
 
     /**
@@ -86,6 +89,13 @@ class Purchases
         /* Check all providers for purchase status */
         for (const p of this.providers) if (p.isItemPurchased(itemId)) return true;
         return false;
+    }
+
+    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+        if (!this.hasProviders()) {
+            return Promise.reject(new Error('No providers available.'));
+        }
+        return this.providers[this.providers.length - 1].getItemDetails(itemIds);
     }
 }
 
