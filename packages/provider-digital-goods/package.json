@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/upsdk-provider-digital-goods",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "Digital Goods API provider for @wonderlandengine/upsdk (Meta, Google, Microsoft)",
     "type": "module",
     "main": "./dist/index.js",

@@ -38,7 +38,128 @@ const digitalGoodsProvider = new DigitalGoodsProvider({billingService: 'https://
 
 ## Configuration
 
+The `DigitalGoodsProvider` accepts a configuration object with the following properties:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `billingService` | `string` | Yes | Platform-specific billing service URL (see Supported Platforms above) |
+
+Example:
+
+```javascript
+const config = {
+    billingService: 'https://quest.meta.com/billing'
+};
+```
+
 ## Methods
+
+### `getItemDetails(itemIds: string[])`
+
+Retrieve product details for specified item IDs.
+
+**Parameters:**
+
+- `itemIds` - Array of product identifiers to query
+
+**Returns:** `Promise<DigitalGoodsProductDetails[]>` - Product details including price, title, and description
+
+**Example:**
+
+```javascript
+const details = await provider.getItemDetails(['item1', 'item2']);
+console.log(details[0].title, details[0].price);
+```
+
+### `purchaseItem(itemId: string, count?: number)`
+
+Initiate the purchase flow for a digital item. Opens the Payment Request dialog and processes the transaction.
+
+**Parameters:**
+
+- `itemId` - Product identifier to purchase
+- `count` - Quantity (optional, currently only 1 is supported)
+
+**Returns:** `Promise<boolean>` - True if purchase succeeded, false otherwise
+
+**Example:**
+
+```javascript
+const success = await provider.purchaseItem('item1');
+if (success) {
+    console.log('Purchase successful!');
+}
+```
+
+### `isItemPurchased(itemId: string)`
+
+Check if a product has been purchased by the user.
+
+**Parameters:**
+
+- `itemId` - Product identifier to check
+
+**Returns:** `boolean` - True if the user owns the item
+
+**Example:**
+
+```javascript
+if (provider.isItemPurchased('premium_upgrade')) {
+    // Grant access to premium features
+}
+```
+
+### `getPurchasedItems()`
+
+Get all purchased items for the current user.
+
+**Returns:** `PurchaseDetails[]` - Array of purchase details for all owned items
+
+**Example:**
+
+```javascript
+const purchases = provider.getPurchasedItems();
+purchases.forEach(item => console.log(item.itemId));
+```
+
+### `getItemURL(itemId: string)`
+
+Get the store page URL for an item (if available).
+
+**Parameters:**
+
+- `itemId` - Product identifier
+
+**Returns:** `Promise<string>` - Store URL (currently not implemented, returns empty string)
+
+**Example:**
+
+```javascript
+const url = await provider.getItemURL('item1');
+```
+
+## Testing
+
+The package also includes `DigitalGoodsProviderMock` for testing without actual billing integration. Test goods can be defined as purchased or use an error to throw during purchase.
+
+```javascript
+import { DigitalGoodsProviderMock } from '@wonderlandengine/upsdk-provider-digital-goods';
+
+const mockProvider = new DigitalGoodsProviderMock([
+    { 
+        id: 'item1', 
+        title: 'Test Item', 
+        price: { currency: 'USD', value: '9.99' },
+        purchased: false
+    },
+     {
+        id: 'item2',
+        title: 'Test Item2',
+        price: { currency: 'USD', value: '1.99' },
+        throwError: "Simulated purchase error"
+    }
+]);
+```
 
 ## License
 

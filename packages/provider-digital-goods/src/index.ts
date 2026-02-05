@@ -1,15 +1,26 @@
 import {PurchasesProvider} from '@wonderlandengine/upsdk';
 
+/**
+ * Configuration for the Digital Goods Provider.
+ */
 export type DigitalGoodsProviderConfig = {
+    /** Platform-specific billing service identifier (e.g., 'https://quest.meta.com/billing') */
     billingService: string;
 };
 
 /**
- * Digital Goods Provider (Web Digital Goods API).
+ * Digital Goods Provider using the Web Digital Goods API.
  *
- * Implements PurchasesProvider to query and purchase digital goods using the
- * platform's getDigitalGoodsService and Payment Request flow. Owned item IDs
- * are stored in-memory after listing purchases via the digital goods service.
+ * Enables in-app purchases through platform-native billing services.
+ * Queries product details, processes purchases via Payment Request API,
+ * and tracks owned items in-memory.
+ *
+ * @example
+ * ```ts
+ * const provider = new DigitalGoodsProvider({
+ *   billingService: 'https://quest.meta.com/billing'
+ * });
+ * ```
  */
 export class DigitalGoodsProvider implements PurchasesProvider {
     name = 'digital-goods';
@@ -21,7 +32,9 @@ export class DigitalGoodsProvider implements PurchasesProvider {
     private _details: DigitalGoodsProductDetails[] = [];
 
     /**
-     * Constructor
+     * Initialize the Digital Goods Provider.
+     *
+     * @param config - Provider configuration with billing service identifier
      */
     constructor(config: DigitalGoodsProviderConfig) {
         if (!('getDigitalGoodsService' in window)) {
@@ -51,6 +64,12 @@ export class DigitalGoodsProvider implements PurchasesProvider {
             });
     }
 
+    /**
+     * Retrieve product details for specified item IDs.
+     *
+     * @param itemIds - Array of product identifiers to query
+     * @returns Product details including price, title, and description
+     */
     async getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
         if (!itemIds || itemIds.length === 0) {
             return [];
@@ -75,6 +94,16 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         }
     }
 
+    /**
+     * Initiate purchase flow for a digital item.
+     *
+     * Opens Payment Request dialog and processes the transaction.
+     * Updates owned items list on successful purchase.
+     *
+     * @param itemId - Product identifier to purchase
+     * @param count - Quantity (currently only 1 is supported)
+     * @returns True if purchase succeeded, false otherwise
+     */
     async purchaseItem(itemId: string, count: number = 1): Promise<boolean> {
         if (!itemId) {
             console.error('Missing itemId for purchaseItem.');
@@ -129,6 +158,12 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         return true;
     }
 
+    /**
+     * Check if a product has been purchased.
+     *
+     * @param itemId - Product identifier to check
+     * @returns True if the user owns the item
+     */
     isItemPurchased(itemId: string): boolean {
         if (!itemId) {
             console.error('Missing itemId for isItemPurchased.');
@@ -137,30 +172,68 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         return this._ownedItems.some((item) => item.itemId === itemId);
     }
 
+    /**
+     * Get all purchased items.
+     *
+     * @returns Array of purchase details for all owned items
+     */
     getPurchasedItems(): PurchaseDetails[] {
         return [...this._ownedItems];
     }
 
+    /**
+     * Get store page URL for an item.
+     *
+     * @param itemId - Product identifier
+     * @returns Store URL (currently not implemented)
+     */
     async getItemURL(itemId: string): Promise<string> {
         // TODO meta store page?
         return '';
     }
 }
 
+/**
+ * Test data configuration for mock provider.
+ */
 export type MockTestData = {
+    /** Product identifier */
     id: string;
+    /** Product display name */
     title?: string;
+    /** Product description text */
     description?: string;
+    /** Price information with currency and value */
     price?: {currency: string; value: string};
+    /** Subscription duration period */
     subscriptionPeriod?: string;
+    /** Free trial duration period */
     freeTrialPeriod?: string;
+    /** Introductory price duration period */
     introductoryPricePeriod?: string;
+    /** Number of introductory price cycles */
     introductoryPriceCycles?: number;
+    /** Introductory price information */
     introductoryPrice?: {currency: string; value: string};
+    /** Error message to throw during operations (testing) */
     throwError?: string;
+    /** Initial purchase state */
     purchased?: boolean;
 };
 
+/**
+ * Mock implementation of Digital Goods Provider for testing.
+ *
+ * Simulates purchase operations without actual transactions.
+ * Accepts test data to configure product details and behavior.
+ *
+ * @example
+ * ```ts
+ * const mock = new DigitalGoodsProviderMock([
+ *   { id: 'item1', title: 'Test Item', price: { currency: 'USD', value: '9.99' } }
+ * ]);
+ * ```
+ */
 export class DigitalGoodsProviderMock implements PurchasesProvider {
     name = 'digital-goods-mock';
     available = true;
@@ -168,6 +241,11 @@ export class DigitalGoodsProviderMock implements PurchasesProvider {
     private _purchasedItems: Set<string> = new Set();
     private _testData: MockTestData[] | null = null;
 
+    /**
+     * Initialize the mock provider.
+     *
+     * @param testData - Optional array of product configurations for testing
+     */
     constructor(testData: MockTestData[] = null) {
         if (testData != null) {
             this._testData = testData;
@@ -179,6 +257,14 @@ export class DigitalGoodsProviderMock implements PurchasesProvider {
         }
     }
 
+    /**
+     * Simulate a purchase operation.
+     *
+     * @param itemId - Product identifier to purchase
+     * @param count - Quantity (optional)
+     * @returns True on success
+     * @throws Error if test data specifies throwError
+     */
     async purchaseItem(itemId: string, count?: number): Promise<boolean> {
         if (this._testData != null) {
             const data = this._testData.find((item) => item.id === itemId);
@@ -192,16 +278,34 @@ export class DigitalGoodsProviderMock implements PurchasesProvider {
         return true;
     }
 
+    /**
+     * Check if an item is marked as purchased.
+     *
+     * @param itemId - Product identifier to check
+     * @returns True if purchased
+     */
     isItemPurchased(itemId: string): boolean {
         console.log('Mock isItemPurchased for', itemId);
         return this._purchasedItems.has(itemId);
     }
 
+    /**
+     * Get mock store URL.
+     *
+     * @param itemId - Product identifier
+     * @returns Mock store URL
+     */
     async getItemURL(itemId: string): Promise<string> {
         console.log('Mock getItemURL for', itemId);
         return `https://store.example.com/item/${itemId}`;
     }
 
+    /**
+     * Retrieve mock product details.
+     *
+     * @param itemIds - Array of product identifiers
+     * @returns Mock product details based on test data or default values
+     */
     async getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
         console.log('Mock getItemDetails for', itemIds);
         if (this._testData == null) {
