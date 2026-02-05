@@ -31,26 +31,71 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         }
         this._config = config;
 
-        window.getDigitalGoodsService(config.billingService).then(async (service) => {
-            this._service = service;
-            const purchases = await service.listPurchases();
-            this._ownedItems = purchases;
-        });
+        window
+            .getDigitalGoodsService(config.billingService)
+            .then(async (service) => {
+                this._service = service;
+                try {
+                    const purchases = await service.listPurchases();
+                    this._ownedItems = purchases;
+
+                    this.available = true;
+                } catch (e) {
+                    console.error('Failed to get previous purchases:', e);
+                    this.available = false;
+                }
+            })
+            .catch((e) => {
+                console.error('Failed to get Digital Goods Service:', e);
+                this.available = false;
+            });
     }
+
     async getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+        if (!itemIds || itemIds.length === 0) {
+            return [];
+        }
+
         if (!('getDigitalGoodsService' in window)) {
             console.warn('Digital Goods Provider not available on this platform.');
             return [];
         }
-        this._details = await this._service.getDetails(itemIds);
-        return this._details;
+
+        if (!this._service) {
+            console.warn('Digital Goods Service not initialized yet.');
+            return [];
+        }
+
+        try {
+            this._details = await this._service.getDetails(itemIds);
+            return this._details;
+        } catch (e) {
+            console.error('Failed to get item details:', e);
+            return [];
+        }
     }
 
     async purchaseItem(itemId: string, count: number = 1): Promise<boolean> {
+        if (!itemId) {
+            console.error('Missing itemId for purchaseItem.');
+            return false;
+        }
+
         const paymentMethods = [
             {supportedMethods: this._config.billingService, data: {sku: itemId}},
         ];
-        const details = await this._service.getDetails([itemId]);
+
+        if (!this._service) {
+            console.error('Digital Goods Service not initialized.');
+            return false;
+        }
+        let details: DigitalGoodsProductDetails[];
+        try {
+            details = await this._service.getDetails([itemId]);
+        } catch (e) {
+            console.error('Failed to get item details for purchase:', e);
+            return false;
+        }
         // Checks
         if (!details || details.length === 0) {
             console.error(`Item details not found for itemId: ${itemId}`);
@@ -70,22 +115,30 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         try {
             const response = await request.show();
             const purchaseToken = response.details.purchaseToken;
-            // response.complete('success');
             console.log(`got purchase token: ${purchaseToken}`);
-            console.log('details', response.details);
-            return purchaseToken;
         } catch (e) {
             console.error('Payment Request failed or was cancelled.', e);
             return false;
         }
+        try {
+            this._ownedItems = await this._service.listPurchases();
+        } catch (e) {
+            console.error('Failed to refresh owned items after purchase:', e);
+            return false;
+        }
+        return true;
     }
 
     isItemPurchased(itemId: string): boolean {
+        if (!itemId) {
+            console.error('Missing itemId for isItemPurchased.');
+            return false;
+        }
         return this._ownedItems.some((item) => item.itemId === itemId);
     }
 
     getPurchasedItems(): PurchaseDetails[] {
-        return this._ownedItems;
+        return [...this._ownedItems];
     }
 
     async getItemURL(itemId: string): Promise<string> {
@@ -94,7 +147,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
     }
 }
 
-type MockTestData = {
+export type MockTestData = {
     id: string;
     title?: string;
     description?: string;
@@ -109,6 +162,9 @@ type MockTestData = {
 };
 
 export class DigitalGoodsProviderMock implements PurchasesProvider {
+    name = 'digital-goods-mock';
+    available = true;
+
     private _purchasedItems: Set<string> = new Set();
     private _testData: MockTestData[] | null = null;
 
@@ -188,6 +244,4 @@ export class DigitalGoodsProviderMock implements PurchasesProvider {
             return result;
         }
     }
-    name = 'digital-goods';
-    available = true;
 }
