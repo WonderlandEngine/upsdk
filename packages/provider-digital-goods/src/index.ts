@@ -142,9 +142,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
             },
         });
         try {
-            const response = await request.show();
-            const purchaseToken = response.details.purchaseToken;
-            console.log(`got purchase token: ${purchaseToken}`);
+            await request.show();
         } catch (e) {
             console.error('Payment Request failed or was cancelled.', e);
             return false;
