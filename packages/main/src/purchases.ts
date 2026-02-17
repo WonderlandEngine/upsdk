@@ -47,7 +47,6 @@ class Purchases
     extends AbstractGlobalProvider<PurchasesProvider>
     implements PurchasesProvider
 {
-    available?: boolean;
     name = 'universal-purchases-provider';
 
     /**
