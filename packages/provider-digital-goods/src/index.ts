@@ -22,7 +22,7 @@ export type DigitalGoodsProviderConfig = {
  * });
  * ```
  */
-export class DigitalGoodsProvider implements PurchasesProvider {
+export class DigitalGoodsProvider implements PurchasesProvider<DigitalGoodsProductDetails> {
     name = 'digital-goods';
     available = true;
 
@@ -224,7 +224,9 @@ export type MockTestData = {
  * ]);
  * ```
  */
-export class DigitalGoodsProviderMock implements PurchasesProvider {
+export class DigitalGoodsProviderMock
+    implements PurchasesProvider<DigitalGoodsProductDetails>
+{
     name = 'digital-goods-mock';
     available = true;
 

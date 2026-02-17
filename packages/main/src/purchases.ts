@@ -3,12 +3,18 @@ import {AbstractGlobalProvider, Provider} from './provider.js';
 const PURCHASES_PROVIDER_SYMBOL = Symbol.for(
     '@wonderlandengine/uber-sdk/purchases-provider'
 );
+
+/**
+ * Product details returned by purchase providers. This is a generic interface and does not include any fields provided by specific services. Implementations of PurchasesProvider should extend this interface to include service-specific fields.
+ */
+interface ProductDetails {}
+
 /**
  * Purchases Provider
  *
  * Interface for services that provide in-app purchases and user inventory.
  */
-export interface PurchasesProvider extends Provider {
+export interface PurchasesProvider<T> extends Provider {
     /**
      * Purchase item with given id.
      *
@@ -34,7 +40,7 @@ export interface PurchasesProvider extends Provider {
      */
     getItemURL(itemId: string): Promise<string>;
 
-    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]>;
+    getItemDetails(itemIds: string[]): Promise<T[]>;
 }
 
 /**
@@ -44,8 +50,8 @@ export interface PurchasesProvider extends Provider {
  * available ones and fall back to others.
  */
 class Purchases
-    extends AbstractGlobalProvider<PurchasesProvider>
-    implements PurchasesProvider
+    extends AbstractGlobalProvider<PurchasesProvider<ProductDetails>>
+    implements PurchasesProvider<ProductDetails>
 {
     name = 'universal-purchases-provider';
 
@@ -97,7 +103,7 @@ class Purchases
      * @returns Promise that resolves to a list of details per item that has been found
      * @throws Error if no providers are available
      */
-    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+    getItemDetails(itemIds: string[]): Promise<ProductDetails[]> {
         if (!this.hasProviders()) {
             return Promise.reject(new Error('No providers available.'));
         }

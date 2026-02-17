@@ -1,4 +1,4 @@
-import {heyVRSDK} from '@heyvr/sdk-types';
+import {CatalogItem, heyVRSDK} from '@heyvr/sdk-types';
 import {Emitter} from '@wonderlandengine/api';
 import {
     UserProvider,
@@ -16,14 +16,18 @@ declare global {
 }
 
 export class HeyVRProvider
-    implements UserProvider, SaveGameProvider, LeaderboardsProvider, PurchasesProvider
+    implements
+        UserProvider,
+        SaveGameProvider,
+        LeaderboardsProvider,
+        PurchasesProvider<CatalogItem>
 {
     name = 'heyvr';
-
-    _user: User | null = null;
-    _gameId: string;
-
     available = false;
+
+    private _user: User | null = null;
+    private _gameId: string;
+    private _catalog: CatalogItem[];
 
     /**
      * Constructor
@@ -190,8 +194,10 @@ export class HeyVRProvider
         return window.heyVR.inventory.getItemURL(this._gameId, itemId);
     }
 
-    getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
-        // HeyVR SDK does not support fetching item details by IDs
-        return null;
+    async getItemDetails(itemIds: string[]): Promise<CatalogItem[]> {
+        if (!this._catalog) {
+            this._catalog = await window.heyVR.inventory.getCatalog();
+        }
+        return this._catalog.filter((item) => itemIds.includes(item.slug));
     }
 }
