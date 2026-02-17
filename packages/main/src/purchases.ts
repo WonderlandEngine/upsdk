@@ -91,6 +91,13 @@ class Purchases
         return false;
     }
 
+    /**
+     * Get details for multiple items from the highest priority provider
+     *
+     * @param itemIds list of IDs of items to get details of
+     * @returns Promise that resolves to a list of details per item that has been found
+     * @throws Error if no providers are available
+     */
     getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
         if (!this.hasProviders()) {
             return Promise.reject(new Error('No providers available.'));
