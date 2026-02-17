@@ -89,8 +89,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
             this._details = await this._service.getDetails(itemIds);
             return this._details;
         } catch (e) {
-            console.error('Failed to get item details:', e);
-            return [];
+            throw new Error('Failed to get item details: ' + e);
         }
     }
 
@@ -106,8 +105,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
      */
     async purchaseItem(itemId: string, count: number = 1): Promise<boolean> {
         if (!itemId) {
-            console.error('Missing itemId for purchaseItem.');
-            return false;
+            throw new Error('Missing itemId for purchaseItem.');
         }
 
         const paymentMethods = [
@@ -115,20 +113,17 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         ];
 
         if (!this._service) {
-            console.error('Digital Goods Service not initialized.');
-            return false;
+            throw new Error('Digital Goods Service not initialized.');
         }
         let details: DigitalGoodsProductDetails[];
         try {
             details = await this._service.getDetails([itemId]);
         } catch (e) {
-            console.error('Failed to get item details for purchase:', e);
-            return false;
+            throw new Error('Failed to get item details for purchase: ' + e);
         }
         // Checks
         if (!details || details.length === 0) {
-            console.error(`Item details not found for itemId: ${itemId}`);
-            return false;
+            throw new Error(`Item details not found for itemId: ${itemId}`);
         }
 
         const request = new PaymentRequest(paymentMethods, {
@@ -144,14 +139,12 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         try {
             await request.show();
         } catch (e) {
-            console.error('Payment Request failed or was cancelled.', e);
-            return false;
+            throw new Error('Payment Request failed or was cancelled: ' + e);
         }
         try {
             this._ownedItems = await this._service.listPurchases();
         } catch (e) {
-            console.error('Failed to refresh owned items after purchase:', e);
-            return false;
+            throw new Error('Failed to refresh owned items after purchase: ' + e);
         }
         return true;
     }
@@ -164,8 +157,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
      */
     isItemPurchased(itemId: string): boolean {
         if (!itemId) {
-            console.error('Missing itemId for isItemPurchased.');
-            return false;
+            throw new Error('Missing itemId for isItemPurchased.');
         }
         return this._ownedItems.some((item) => item.itemId === itemId);
     }
