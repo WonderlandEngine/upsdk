@@ -139,7 +139,7 @@ export class DigitalGoodsProvider implements PurchasesProvider {
         try {
             await request.show();
         } catch (e) {
-            throw new Error('Payment Request failed or was cancelled: ' + e);
+            throw new Error('Payment request failed or was cancelled: ' + e);
         }
         try {
             this._ownedItems = await this._service.listPurchases();
