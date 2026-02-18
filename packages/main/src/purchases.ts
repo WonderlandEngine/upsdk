@@ -40,7 +40,7 @@ export interface PurchasesProvider<T> extends Provider {
      */
     getItemURL(itemId: string): Promise<string>;
 
-    getItemDetails(itemIds: string[]): Promise<T[]>;
+    getItemDetails<TDet>(itemIds: string[]): Promise<TDet[]>;
 }
 
 /**
@@ -103,11 +103,13 @@ class Purchases
      * @returns Promise that resolves to a list of details per item that has been found
      * @throws Error if no providers are available
      */
-    getItemDetails(itemIds: string[]): Promise<ProductDetails[]> {
+    getItemDetails<TDet>(itemIds: string[]): Promise<TDet[]> {
         if (!this.hasProviders()) {
             return Promise.reject(new Error('No providers available.'));
         }
-        return this.providers[this.providers.length - 1].getItemDetails(itemIds);
+        return this.providers[this.providers.length - 1].getItemDetails(itemIds) as Promise<
+            TDet[]
+        >;
     }
 }
 

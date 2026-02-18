@@ -194,10 +194,10 @@ export class HeyVRProvider
         return window.heyVR.inventory.getItemURL(this._gameId, itemId);
     }
 
-    async getItemDetails(itemIds: string[]): Promise<CatalogItem[]> {
+    async getItemDetails<CatalogItem>(itemIds: string[]): Promise<CatalogItem[]> {
         if (!this._catalog) {
             this._catalog = await window.heyVR.inventory.getCatalog();
         }
-        return this._catalog.filter((item) => itemIds.includes(item.slug));
+        return this._catalog.filter((item) => itemIds.includes(item.slug)) as CatalogItem[];
     }
 }

@@ -70,7 +70,9 @@ export class DigitalGoodsProvider implements PurchasesProvider<DigitalGoodsProdu
      * @param itemIds - Array of product identifiers to query
      * @returns Product details including price, title, and description
      */
-    async getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+    async getItemDetails<DigitalGoodsProductDetails>(
+        itemIds: string[]
+    ): Promise<DigitalGoodsProductDetails[]> {
         if (!itemIds || itemIds.length === 0) {
             return [];
         }
@@ -87,7 +89,7 @@ export class DigitalGoodsProvider implements PurchasesProvider<DigitalGoodsProdu
 
         try {
             this._details = await this._service.getDetails(itemIds);
-            return this._details;
+            return this._details as DigitalGoodsProductDetails[];
         } catch (e) {
             throw new Error('Failed to get item details: ' + e);
         }
@@ -298,22 +300,27 @@ export class DigitalGoodsProviderMock
      * @param itemIds - Array of product identifiers
      * @returns Mock product details based on test data or default values
      */
-    async getItemDetails(itemIds: string[]): Promise<DigitalGoodsProductDetails[]> {
+    async getItemDetails<DigitalGoodsProductDetails>(
+        itemIds: string[]
+    ): Promise<DigitalGoodsProductDetails[]> {
         console.log('Mock getItemDetails for', itemIds);
         if (this._testData == null) {
-            return itemIds.map((id) => ({
-                itemId: id,
-                title: `Mock Item ${id}`,
-                description: `Mock description for ${id}`,
-                price: {currency: 'USD', value: '1.00'},
-                iconURLs: [],
-                subscriptionPeriod: '',
-                freeTrialPeriod: '',
-                introductoryPricePeriod: '',
-                introductoryPriceCycles: 0,
-                type: 'product',
-                introductoryPrice: {currency: 'USD', value: '1.00'},
-            }));
+            return itemIds.map(
+                (id) =>
+                    ({
+                        itemId: id,
+                        title: `Mock Item ${id}`,
+                        description: `Mock description for ${id}`,
+                        price: {currency: 'USD', value: '1.00'},
+                        iconURLs: [],
+                        subscriptionPeriod: '',
+                        freeTrialPeriod: '',
+                        introductoryPricePeriod: '',
+                        introductoryPriceCycles: 0,
+                        type: 'product',
+                        introductoryPrice: {currency: 'USD', value: '1.00'},
+                    }) as DigitalGoodsProductDetails
+            );
         } else {
             const result: DigitalGoodsProductDetails[] = [];
             for (const id of itemIds) {
@@ -334,7 +341,7 @@ export class DigitalGoodsProviderMock
                             currency: 'USD',
                             value: '1.00',
                         },
-                    });
+                    } as DigitalGoodsProductDetails);
                 }
             }
             return result;

@@ -29,7 +29,7 @@ npm install @wonderlandengine/upsdk-provider-digital-goods
 
 ## Usage
 
-```javascript
+```typescript
 import { DigitalGoodsProvider } from '@wonderlandengine/upsdk-provider-digital-goods';
 
 const digitalGoodsProvider = new DigitalGoodsProvider({billingService: 'https://quest.meta.com/billing'});
@@ -66,8 +66,8 @@ Retrieve product details for specified item IDs.
 
 **Example:**
 
-```javascript
-const details = await provider.getItemDetails(['item1', 'item2']);
+```typescript
+const details = await provider.getItemDetails<DigitalGoodsProductDetails>(['item1', 'item2']);
 console.log(details[0].title, details[0].price);
 ```
 
@@ -84,7 +84,7 @@ Initiate the purchase flow for a digital item. Opens the Payment Request dialog 
 
 **Example:**
 
-```javascript
+```typescript
 const success = await provider.purchaseItem('item1');
 if (success) {
     console.log('Purchase successful!');
@@ -103,7 +103,7 @@ Check if a product has been purchased by the user.
 
 **Example:**
 
-```javascript
+```typescript
 if (provider.isItemPurchased('premium_upgrade')) {
     // Grant access to premium features
 }
@@ -117,7 +117,7 @@ Get all purchased items for the current user.
 
 **Example:**
 
-```javascript
+```typescript
 const purchases = provider.getPurchasedItems();
 purchases.forEach(item => console.log(item.itemId));
 ```
@@ -134,7 +134,7 @@ Get the store page URL for an item (if available).
 
 **Example:**
 
-```javascript
+```typescript
 const url = await provider.getItemURL('item1');
 ```
 
@@ -142,7 +142,7 @@ const url = await provider.getItemURL('item1');
 
 The package also includes `DigitalGoodsProviderMock` for testing without actual billing integration. Test goods can be defined as purchased or use an error to throw during purchase.
 
-```javascript
+```typescript
 import { DigitalGoodsProviderMock } from '@wonderlandengine/upsdk-provider-digital-goods';
 
 const mockProvider = new DigitalGoodsProviderMock([

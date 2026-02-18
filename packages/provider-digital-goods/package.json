@@ -1,6 +1,6 @@
 {
     "name": "@wonderlandengine/upsdk-provider-digital-goods",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "Digital Goods API provider for @wonderlandengine/upsdk (Meta, Google, Microsoft)",
     "type": "module",
     "main": "./dist/index.js",
@@ -27,9 +27,7 @@
     "license": "MIT",
     "prettier": "@wonderlandengine/prettier-config",
     "dependencies": {
-        "@wonderlandengine/upsdk": "^0.2.4"
-    },
-    "devDependencies": {
+        "@wonderlandengine/upsdk": "^0.2.4",
         "@types/digital-goods-browser": "^2.0.3"
     }
 }
