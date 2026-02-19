@@ -1,4 +1,4 @@
-import {PurchasesProvider} from '@wonderlandengine/upsdk';
+import {PurchasedItem, PurchasesProvider} from '@wonderlandengine/upsdk';
 
 /**
  * Configuration for the Digital Goods Provider.
@@ -22,7 +22,7 @@ export type DigitalGoodsProviderConfig = {
  * });
  * ```
  */
-export class DigitalGoodsProvider implements PurchasesProvider<DigitalGoodsProductDetails> {
+export class DigitalGoodsProvider implements PurchasesProvider {
     name = 'digital-goods';
     available = true;
 
@@ -169,8 +169,10 @@ export class DigitalGoodsProvider implements PurchasesProvider<DigitalGoodsProdu
      *
      * @returns Array of purchase details for all owned items
      */
-    getPurchasedItems(): PurchaseDetails[] {
-        return [...this._ownedItems];
+    async getPurchasedItems(): Promise<PurchasedItem[]> {
+        const purchases = await this._service.listPurchaseHistory();
+        this._ownedItems = purchases;
+        return purchases.map((p) => ({id: p.itemId, token: p.purchaseToken}));
     }
 
     /**
@@ -226,9 +228,7 @@ export type MockTestData = {
  * ]);
  * ```
  */
-export class DigitalGoodsProviderMock
-    implements PurchasesProvider<DigitalGoodsProductDetails>
-{
+export class DigitalGoodsProviderMock implements PurchasesProvider {
     name = 'digital-goods-mock';
     available = true;
 
@@ -344,7 +344,19 @@ export class DigitalGoodsProviderMock
                     } as DigitalGoodsProductDetails);
                 }
             }
-            return result;
+            return result as DigitalGoodsProductDetails[];
         }
+    }
+
+    /**
+     * Get all purchased items.
+     *
+     * @returns Array of purchase details for all owned items
+     */
+    async getPurchasedItems(): Promise<PurchasedItem[]> {
+        return Array.from(this._purchasedItems).map((id) => ({
+            id,
+            token: `mock-token-${id}`,
+        }));
     }
 }

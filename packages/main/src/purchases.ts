@@ -4,17 +4,17 @@ const PURCHASES_PROVIDER_SYMBOL = Symbol.for(
     '@wonderlandengine/uber-sdk/purchases-provider'
 );
 
-/**
- * Product details returned by purchase providers. This is a generic interface and does not include any fields provided by specific services. Implementations of PurchasesProvider should extend this interface to include service-specific fields.
- */
-interface ProductDetails {}
+export type PurchasedItem = {
+    id: string;
+    token?: string;
+};
 
 /**
  * Purchases Provider
  *
  * Interface for services that provide in-app purchases and user inventory.
  */
-export interface PurchasesProvider<T> extends Provider {
+export interface PurchasesProvider extends Provider {
     /**
      * Purchase item with given id.
      *
@@ -40,7 +40,22 @@ export interface PurchasesProvider<T> extends Provider {
      */
     getItemURL(itemId: string): Promise<string>;
 
+    /**
+     * Get details for multiple items from the highest priority provider
+     *
+     * @param itemIds list of IDs of items to get details of
+     * @returns Promise that resolves to a list of details per item that has been found
+     * @throws Error if no providers are available
+     */
     getItemDetails<TDet>(itemIds: string[]): Promise<TDet[]>;
+
+    /**
+     * Get list of purchased items from the highest priority provider
+     *
+     * @returns Promise that resolves to a list of purchased items
+     * @throws Error if no providers are available
+     */
+    getPurchasedItems(): Promise<PurchasedItem[]>;
 }
 
 /**
@@ -50,8 +65,8 @@ export interface PurchasesProvider<T> extends Provider {
  * available ones and fall back to others.
  */
 class Purchases
-    extends AbstractGlobalProvider<PurchasesProvider<ProductDetails>>
-    implements PurchasesProvider<ProductDetails>
+    extends AbstractGlobalProvider<PurchasesProvider>
+    implements PurchasesProvider
 {
     name = 'universal-purchases-provider';
 
@@ -110,6 +125,19 @@ class Purchases
         return this.providers[this.providers.length - 1].getItemDetails(itemIds) as Promise<
             TDet[]
         >;
+    }
+
+    /**
+     * Get list of purchased items from the highest priority provider
+     *
+     * @returns Promise that resolves to a list of purchased items
+     * @throws Error if no providers are available
+     */
+    getPurchasedItems(): Promise<PurchasedItem[]> {
+        if (!this.hasProviders()) {
+            return Promise.reject(new Error('No providers available.'));
+        }
+        return this.providers[this.providers.length - 1].getPurchasedItems();
     }
 }
 

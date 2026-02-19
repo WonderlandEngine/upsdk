@@ -7,6 +7,7 @@ import {
     PurchasesProvider,
     User,
     LeaderboardEntry,
+    PurchasedItem,
 } from '@wonderlandengine/upsdk';
 
 declare global {
@@ -16,11 +17,7 @@ declare global {
 }
 
 export class HeyVRProvider
-    implements
-        UserProvider,
-        SaveGameProvider,
-        LeaderboardsProvider,
-        PurchasesProvider<CatalogItem>
+    implements UserProvider, SaveGameProvider, LeaderboardsProvider, PurchasesProvider
 {
     name = 'heyvr';
     available = false;
@@ -199,5 +196,11 @@ export class HeyVRProvider
             this._catalog = await window.heyVR.inventory.getCatalog();
         }
         return this._catalog.filter((item) => itemIds.includes(item.slug)) as CatalogItem[];
+    }
+
+    async getPurchasedItems(): Promise<PurchasedItem[]> {
+        const items = await window.heyVR.inventory.get();
+        this.ownedItems = items.map((i) => i.slug);
+        return this.ownedItems.map((id) => ({id}));
     }
 }
