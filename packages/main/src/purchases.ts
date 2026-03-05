@@ -3,6 +3,12 @@ import {AbstractGlobalProvider, Provider} from './provider.js';
 const PURCHASES_PROVIDER_SYMBOL = Symbol.for(
     '@wonderlandengine/uber-sdk/purchases-provider'
 );
+
+export type PurchasedItem = {
+    id: string;
+    token?: string;
+};
+
 /**
  * Purchases Provider
  *
@@ -33,6 +39,23 @@ export interface PurchasesProvider extends Provider {
      * @returns Promise that resolves to the purchase URL
      */
     getItemURL(itemId: string): Promise<string>;
+
+    /**
+     * Get details for multiple items from the highest priority provider
+     *
+     * @param itemIds list of IDs of items to get details of
+     * @returns Promise that resolves to a list of details per item that has been found
+     * @throws Error if no providers are available
+     */
+    getItemDetails<TDet>(itemIds: string[]): Promise<TDet[]>;
+
+    /**
+     * Get list of purchased items from the highest priority provider
+     *
+     * @returns Promise that resolves to a list of purchased items
+     * @throws Error if no providers are available
+     */
+    getPurchasedItems(): Promise<PurchasedItem[]>;
 }
 
 /**
@@ -86,6 +109,35 @@ class Purchases
         /* Check all providers for purchase status */
         for (const p of this.providers) if (p.isItemPurchased(itemId)) return true;
         return false;
+    }
+
+    /**
+     * Get details for multiple items from the highest priority provider
+     *
+     * @param itemIds list of IDs of items to get details of
+     * @returns Promise that resolves to a list of details per item that has been found
+     * @throws Error if no providers are available
+     */
+    getItemDetails<TDet>(itemIds: string[]): Promise<TDet[]> {
+        if (!this.hasProviders()) {
+            return Promise.reject(new Error('No providers available.'));
+        }
+        return this.providers[this.providers.length - 1].getItemDetails(itemIds) as Promise<
+            TDet[]
+        >;
+    }
+
+    /**
+     * Get list of purchased items from the highest priority provider
+     *
+     * @returns Promise that resolves to a list of purchased items
+     * @throws Error if no providers are available
+     */
+    getPurchasedItems(): Promise<PurchasedItem[]> {
+        if (!this.hasProviders()) {
+            return Promise.reject(new Error('No providers available.'));
+        }
+        return this.providers[this.providers.length - 1].getPurchasedItems();
     }
 }
 

@@ -68,19 +68,20 @@ Find a list of all available providers below:
 [n]: ## "Not implemented."
 [u]: ## "Used in production."
 
-| **Platform**                                                                                | **Advertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
-| ------------------------------------------------------------------------------------------- | -------------- | -------------- | --------- | ---------------- | ------------- | ------------ | -------- |
-| [HeyVR](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-heyvr)               | [✅][u]        |                |           | [✅][u]          | [✅][u]       | [✅][u]      | [✅][u]  |
-| [CrazyGames](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-crazygames)     | [✅][u]        | [✅][u]        | [✅][u]   | N/A              | [❌][n]       | [✅][u]      | [✅][u]  |
-| [Poki](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-poki)                 | [🟡][i]        | [🟡][i]        |           |                  |               |              |          |
-| [Viverse](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-viverse)           | N/A            | N/A            | N/A       | N/A              | N/A           | N/A          | [✅][u]  |
-| [AdInPlay](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-adinplay)         | [🟡][i]        | N/A            | N/A       | N/A              | N/A           | N/A          | N/A      |
-| [Applixir](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-applixir)         | [🟡][i]        | N/A            | N/A       | N/A              | N/A           | N/A          | N/A      |
-| [Yandex Games](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-yandexgames)  | [🟡][i]        | [❌][n]        | [❌][n]   |  [❌][n]         | [❌][n]       | [❌][n]      | [❌][n]  |
-| [Telegram](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-telegram)         |                |                |           |                  |               |              | [🟡][i]  |
-| [Cookie](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-cookie)             |                |                |           |                  |               | [✅][u]      |          |
-| [LocalStorage](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-localstorage) |                |                |           |                  |               | [🟡][i]      |          |
-| Discord Activities                                                                          |                |                |           |                  |               |              |          |
+| **Platform**                                                                                  | **Advertising** | **Analytics** | **Extra** | **Leaderboards** | **Purchases** | **SaveGame** | **User** |
+| --------------------------------------------------------------------------------------------- | -------------- | -------------- | --------- | ---------------- | ------------- | ------------ | -------- |
+| [HeyVR](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-heyvr)                 | [✅][u]        |                |           | [✅][u]          | [✅][u]       | [✅][u]      | [✅][u]  |
+| [CrazyGames](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-crazygames)       | [✅][u]        | [✅][u]        | [✅][u]   | N/A              | [❌][n]       | [✅][u]      | [✅][u]  |
+| [Poki](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-poki)                   | [🟡][i]        | [🟡][i]        |           |                  |               |              |          |
+| [Viverse](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-viverse)             | N/A            | N/A            | N/A       | N/A              | N/A           | N/A          | [✅][u]  |
+| [AdInPlay](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-adinplay)           | [🟡][i]        | N/A            | N/A       | N/A              | N/A           | N/A          | N/A      |
+| [Applixir](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-applixir)           | [🟡][i]        | N/A            | N/A       | N/A              | N/A           | N/A          | N/A      |
+| [Yandex Games](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-yandexgames)    | [🟡][i]        | [❌][n]        | [❌][n]   |  [❌][n]         | [❌][n]       | [❌][n]      | [❌][n]  |
+| [Telegram](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-telegram)           |                |                |           |                  |               |              | [🟡][i]  |
+| [Cookie](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-cookie)               |                |                |           |                  |               | [✅][u]      |          |
+| [LocalStorage](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-localstorage)   |                |                |           |                  |               | [🟡][i]      |          |
+| [Digital Goods](https://www.npmjs.com/package/@wonderlandengine/upsdk-provider-digital-goods) |                |                |           |                  | [🟡][i]       |              |          |
+| Discord Activities                                                                            |                |                |           |                  |               |              |          |
 
 ## How to Use
 
